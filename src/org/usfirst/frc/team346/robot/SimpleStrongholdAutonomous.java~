@@ -1,0 +1,36 @@
+package org.usfirst.frc.team346.robot;
+
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+
+public class SimpleStrongholdAutonomous implements StrongholdAutonomous {
+
+	Drive RobotDrive;
+	Gyro gyro;
+	boolean setTurn = false;
+	double heading = 0.0;
+
+	public SimpleStrongholdAutonomous(Drive D, Gyro gyro, Arm arm){
+		RobotDrive = D;
+		this.gyro = gyro;
+	}
+	
+
+	public void DoAutonomousLogic(double matchtime){
+		if(matchtime < 1 && !setTurn){
+			setTurn = true;
+			heading = gyro.getAngle();
+			RobotDrive.LowGear();
+		}
+		if(matchtime < 5){
+						Arm.Travel();
+			RobotDrive.DriveWithHeadingHold(-.6, -.6, heading);
+		}
+		else
+		{
+			RobotDrive.drive(0, 0);
+		}
+	}
+}
+
+	
+
