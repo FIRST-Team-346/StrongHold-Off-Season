@@ -97,12 +97,16 @@ public class StrongholdMotorPreferences implements MotorPreferences
 		shooterTop = new CANTalon(7);
 		shooterBottom = new CANTalon(8);
 //		shooterTrigger = new CANTalon(9);
-		
+	
+/*		
 		shooterTop.changeControlMode(TalonControlMode.Speed);
 		shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		shooterTop.configEncoderCodesPerRev(1024);
 		shooterTop.setVoltageRampRate(Prefs.getDouble("TopVoltageRamprate",24));
 		shooterTop.setPID(10, 0, 0);
+//*/
+		
+		shooterTop.changeControlMode(TalonControlMode.PercentVbus);
 		
 /*		// SmartDashboard preferences not implemented, doing magic numbers		
 		shooterTop.setPID(Prefs.getDouble("ShootP", 0),

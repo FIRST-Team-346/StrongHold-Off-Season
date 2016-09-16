@@ -53,7 +53,8 @@ public class Shooter {
     }
     
     public void LoadBall(){
-		setMotors(LoadSetpointTop, LoadSetpointBottom, LoadSetpointTrigger);
+    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+//		setMotors(LoadSetpointTop, LoadSetpointBottom, LoadSetpointTrigger); // Not implementing speed control
 		if(Gripper.get())
 		{
 			Trigger.set(false);
@@ -82,11 +83,13 @@ public class Shooter {
     }*/
     
     public void SpinUp(){
-    	setMotors(ShootSetpointTop,ShootSetpointBottom,0);
+    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed    	
+//    	setMotors(ShootSetpointTop,ShootSetpointBottom,0); // Not implementing speed control
     	Gripper.set(false);
     }
     public void ShootClose(){
-    	setMotors(ShootCloseTop,ShootCloseBottom,0);
+    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+//    	setMotors(ShootCloseTop,ShootCloseBottom,0); // Not implementing speed control
     	Gripper.set(false);
     }
   //  public boolean IsAbleToFire(){
@@ -104,11 +107,16 @@ public class Shooter {
     			Gripper.set(false);
     			Trigger.set(true);
     		}
-        	setMotors(ShootSetpointTop,ShootSetpointBottom,100);
+    		
+    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+    		
+//        	setMotors(ShootSetpointTop,ShootSetpointBottom,100); // Not implementing speed control
     }
     public void ejectBall()
     {
-    	setMotors(ShootSetpointTop,ShootSetpointBottom,100);
+    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+    	
+//    	setMotors(ShootSetpointTop,ShootSetpointBottom,100);	// Not implementing speed control
     }
     
     public void AutoShootAndFire(){
