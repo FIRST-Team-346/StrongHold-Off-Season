@@ -251,7 +251,7 @@ public class Robot extends IterativeRobot {
         updater.UpdateSmartDashboard();
         SmartDashboard.putNumber("Arm Position", motors.armMotor.get());
         SmartDashboard.putNumber("WinchPosition", motors.winch.getPosition());
-        SmartDashboard.putNumber("rollerspeed", motors.shooterTop.getSpeed());
+//        SmartDashboard.putNumber("rollerspeed", motors.shooterTop.getSpeed());
         SmartDashboard.putNumber("TEST POSITION", 10);        
     }
     

@@ -136,7 +136,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
 		leftDriveMaster.setPosition(0);
         rightDriveMaster.setPosition(0);
         shooterTop.enable();
-        shooterTop.enableControl();
+//        shooterTop.enableControl();
         shooterBottom.enable();
 //        shooterTrigger.enable();
 	
