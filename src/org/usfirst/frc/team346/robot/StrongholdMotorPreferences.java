@@ -21,7 +21,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
 
 	public CANTalon shooterTop;
 	public CANTalon shooterBottom;
-	public CANTalon shooterTrigger;
+//	public CANTalon shooterTrigger;
 	
 	public double armVolts = 12.0;
 	
@@ -96,7 +96,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
 	public void initShooterMotors()	{
 		shooterTop = new CANTalon(7);
 		shooterBottom = new CANTalon(8);
-		shooterTrigger = new CANTalon(9);
+//		shooterTrigger = new CANTalon(9);
 		
 		shooterTop.changeControlMode(TalonControlMode.Speed);
 		shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
@@ -118,10 +118,10 @@ public class StrongholdMotorPreferences implements MotorPreferences
 				Prefs.getDouble("ShootD", 0));
 //*/	
 		
-		shooterTrigger.changeControlMode(TalonControlMode.Speed);
-		shooterTrigger.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		shooterTrigger.configEncoderCodesPerRev(360);
-		shooterTrigger.setPID(0, 0, 0);
+//		shooterTrigger.changeControlMode(TalonControlMode.Speed);
+//		shooterTrigger.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+//		shooterTrigger.configEncoderCodesPerRev(360);
+//		shooterTrigger.setPID(0, 0, 0);
 		
 /*		// SmartDashboard preferences not implemented, doing magic numbers		
 		shooterTrigger.setPID(Prefs.getDouble("TriggerP", 0), 
@@ -134,7 +134,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
         shooterTop.enable();
         shooterTop.enableControl();
         shooterBottom.enable();
-        shooterTrigger.enable();
+//        shooterTrigger.enable();
 	
 	}
 	
