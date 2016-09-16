@@ -47,7 +47,7 @@ public class Shooter {
     	}
     	ShooterTop.set(topSpeed);		
         SmartDashboard.putNumber("ShootSetpointTop", topSpeed);
-    	ShooterBottom.set(-1*ShooterTop.getOutputVoltage());
+//    	ShooterBottom.set(-1*ShooterTop.getOutputVoltage());
     	
    		//Trigger.set(triggerSpeed);		
     }
