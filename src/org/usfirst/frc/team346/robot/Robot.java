@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import org.usfirst.frc.team346.autonomous.SimpleStrongholdAutonomous;
 import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
 import org.usfirst.frc.team346.camera.PiCamera;
-import org.usfirst.frc.team346.robot.commands.ExampleCommand;
-import org.usfirst.frc.team346.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
@@ -38,9 +36,6 @@ public class Robot extends IterativeRobot {
 
 
 	PiCamera camera;
-
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OI oi;
 
 	StrongholdMotorPreferences motors;
 	StrongholdSolenoidPreferences solenoids;
@@ -94,8 +89,7 @@ public class Robot extends IterativeRobot {
 		robotShooter = new Shooter(motors.shooterTop, motors.shooterBottom, solenoids.Gripper, solenoids.Trigger);
 	    robotWinch = new Winch(solenoids.WinchGear, motors.winch, solenoids.HookSupply, solenoids.Hook);	
 		lightManager = new LightManager(new Light(solenoids.green, "green"), new Light(solenoids.red,"red"), new Light(solenoids.blue,"blue"));
-    	lightManager.start();
-    	oi = new OI();
+    	lightManager.start();    	
         
     	
         controller1 = new Joystick(1);
