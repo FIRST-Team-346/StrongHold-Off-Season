@@ -60,7 +60,7 @@ public class StrongholdMotorPreferences {
 		leftDriveSlave.enable();	// Enable left slave output		
 	}
 
-	/**
+	/** 
 	 * Initialize arm motor settings.
 	 */
 	public void initArmMotors()	{
