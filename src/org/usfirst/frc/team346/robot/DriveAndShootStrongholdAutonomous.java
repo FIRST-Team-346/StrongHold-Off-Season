@@ -1,5 +1,6 @@
 package org.usfirst.frc.team346.robot;
 
+import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
 import org.usfirst.frc.team346.camera.PiCamera;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;

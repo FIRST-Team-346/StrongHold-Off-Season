@@ -1,5 +1,7 @@
 package org.usfirst.frc.team346.robot;
 
+import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
+
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class LookPrettyAuto implements StrongholdAutonomous {

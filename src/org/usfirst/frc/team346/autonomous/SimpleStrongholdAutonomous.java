@@ -1,4 +1,8 @@
-package org.usfirst.frc.team346.robot;
+package org.usfirst.frc.team346.autonomous;
+
+import org.usfirst.frc.team346.robot.Arm;
+import org.usfirst.frc.team346.robot.Drive;
+import org.usfirst.frc.team346.robot.Shooter;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 

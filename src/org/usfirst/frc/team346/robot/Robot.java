@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
+import org.usfirst.frc.team346.autonomous.SimpleStrongholdAutonomous;
+import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
 import org.usfirst.frc.team346.camera.PiCamera;
 import org.usfirst.frc.team346.robot.commands.ExampleCommand;
 import org.usfirst.frc.team346.robot.subsystems.ExampleSubsystem;

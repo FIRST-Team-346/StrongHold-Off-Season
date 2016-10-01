@@ -1,4 +1,4 @@
-package org.usfirst.frc.team346.robot;
+package org.usfirst.frc.team346.autonomous;
 
 public interface StrongholdAutonomous {
 
