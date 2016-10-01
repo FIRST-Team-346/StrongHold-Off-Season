@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 
 //TODO: tune the PIDs
-public class StrongholdMotorPreferences implements MotorPreferences
-{
+public class StrongholdMotorPreferences {
 	Preferences Prefs;
 	
 	public CANTalon leftDriveMaster;

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team346.subsystem;
 
+import org.usfirst.frc.team346.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
@@ -21,10 +23,11 @@ public class Arm {
 	//Lower arm until load position has be reached
 	//Rotate encoder so it reads ~PositionLoad on the dashboard
 
+	private CANTalon m_armMotor;
 	
-	public Arm (CANTalon a)
-	{
+	public Arm (CANTalon a) {
 		ArmMotor = a;
+		this.m_armMotor = new CANTalon(RobotMap.ARM_MOTOR_PORT);
 	}
 	
 	public void setArmPosition(double position)
