@@ -1,4 +1,6 @@
-package org.usfirst.frc.team346.robot;
+package org.usfirst.frc.team346.subsystem;
+
+import org.usfirst.frc.team346.robot.dummyPIDOutput;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;

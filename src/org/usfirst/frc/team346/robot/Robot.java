@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import org.usfirst.frc.team346.autonomous.SimpleStrongholdAutonomous;
 import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
 import org.usfirst.frc.team346.camera.PiCamera;
+import org.usfirst.frc.team346.subsystem.Arm;
+import org.usfirst.frc.team346.subsystem.Drive;
+import org.usfirst.frc.team346.subsystem.Shooter;
+import org.usfirst.frc.team346.subsystem.Winch;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;

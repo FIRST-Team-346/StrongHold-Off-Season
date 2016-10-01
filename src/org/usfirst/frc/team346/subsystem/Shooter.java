@@ -1,4 +1,4 @@
-package org.usfirst.frc.team346.robot;
+package org.usfirst.frc.team346.subsystem;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;

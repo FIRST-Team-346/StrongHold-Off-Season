@@ -16,9 +16,9 @@ public class StrongholdSolenoidPreferences {
 	
 	Compressor compressor;
 	
-	Solenoid red;
-	Solenoid green;
-	Solenoid blue;
+//	Solenoid red;
+//	Solenoid green;
+//	Solenoid blue;
 	
 	public StrongholdSolenoidPreferences(){
         SpeedGear  = new DoubleSolenoid(1,0,1);
@@ -26,9 +26,9 @@ public class StrongholdSolenoidPreferences {
         Hook  = new DoubleSolenoid(1,4,5);
         HookSupply = new Solenoid(1,2);
         
-        green = new Solenoid(2,1);
-		red = new Solenoid(2,2);
-        blue = new Solenoid(2,3);
+//        green = new Solenoid(2,1);
+//		red = new Solenoid(2,2);
+//        blue = new Solenoid(2,3);
         winchLatch = new Solenoid(2,4);
     	Gripper = new Solenoid(2,6);
 		Trigger = new Solenoid(2,7);
