@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
 	double previousLeft;
 	double previousRight;
 	dummyPIDOutput Gpid;
-	Shooter shooter;
+	//Shooter shooter;
 	LightManager lightManager;
 	Drive RobotDrive;
 	Light[] lights;
@@ -173,6 +173,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
+ /*  	
         auto = (StrongholdAutonomous) chooser.getSelected();
         gyro.initGyro();
 
@@ -182,13 +183,14 @@ public class Robot extends IterativeRobot {
         //gyroPID.reset();
         time1.reset();
         time1.start();
+//*/     
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        auto.DoAutonomousLogic(time1.get()); 
+//        auto.DoAutonomousLogic(time1.get()); 
         //SmartDashboard.putNumber("Timer1", time1.get());
     	
     }
@@ -205,7 +207,8 @@ public class Robot extends IterativeRobot {
         armControl = false;
         startTime = System.currentTimeMillis();
         motors.winch.reset();
-        motors.shooterTop.reset();
+//        motors.shooterTop.reset();
+        motors.shooterTop.enable();
         motors.setPID();
         motors.winch.enable();
         robotWinch.resetHook();
@@ -286,8 +289,8 @@ public class Robot extends IterativeRobot {
     
     public void processShootingInput(){
 		if(buttonBoard.getLightOn()){
-			System.out.println("Light is On");
-			System.out.println(light.get());
+			//System.out.println("Light is On");
+			//System.out.println(light.get());
 			light.set(Relay.Value.kForward);
 		}
     	if(buttonBoard.getOpenJaws()){
@@ -299,7 +302,7 @@ public class Robot extends IterativeRobot {
 		
     	if(buttonBoard.getEjectBall())
 		{
-			System.out.println("Shooting");
+			//System.out.println("Shooting");
 			lightManager.Flash("red", 1500);
 			robotArm.Shoot();
 			robotShooter.openJaws();
@@ -316,25 +319,43 @@ public class Robot extends IterativeRobot {
     	}
 		if(buttonBoard.getTakeIn())
 		{
-			System.out.println("Taking in");
+			//System.out.println("Taking in");
 			lightManager.Flash("blue", 1500);
 			robotArm.LoadBall();
-			robotShooter.LoadBall();
+//			robotShooter.LoadBall();
+			motors.shooterTop.set(1);
 			robotShooter.openJaws();
 		}
 		if(!buttonBoard.getEjectBall() && !buttonBoard.getTakeIn() && !buttonBoard.getSpinrollers() && !buttonBoard.getShootClose()){
 			//System.out.println("Roller Stop");
-			robotShooter.Stop();
+//			robotShooter.Stop();
+			motors.shooterTop.set(0);
 			//robotShooter.GripBall();
 		}
 		if(buttonBoard.getSpinrollers()){
-			System.out.println("Spinning Rollers");
-			robotShooter.SpinUp();
+			//System.out.println("Spinning Rollers");
+//			robotShooter.SpinUp();
+			motors.shooterTop.enableControl();
+			motors.shooterBottom.enableControl();
+			motors.shooterTop.set(1);
+			System.out.println("Top shooter ID: " + motors.shooterTop.getDeviceID());
+			System.out.println("Top shooter enabled: " + motors.shooterTop.isEnabled());
+			System.out.println("Top shooter control enabled: " + motors.shooterTop.isControlEnabled());
+			System.out.println("Top shooter mode: " + motors.shooterTop.getControlMode());
+			System.out.println("Top shooter vout: " + motors.shooterTop.getOutputVoltage());
+			System.out.println("Top shooter setpoint: " + motors.shooterTop.getSetpoint());
+			System.out.println("Bottom shooter ID: " + motors.shooterBottom.getDeviceID());
+			System.out.println("Bottom shooter enabled: " + motors.shooterBottom.isEnabled());
+			System.out.println("Bottom shooter control enabled: " + motors.shooterBottom.isControlEnabled());
+			System.out.println("Bottom shooter mode: " + motors.shooterBottom.getControlMode());
+			System.out.println("Bottom shooter vout: " + motors.shooterBottom.getOutputVoltage());
+			System.out.println("Bottom shooter setpoint: " + motors.shooterBottom.getSetpoint());
 			robotShooter.openJaws();
 			light.set(Relay.Value.kForward);
 		}
 		if(buttonBoard.getShootClose()) {
-        	robotShooter.ShootClose();
+//        	robotShooter.ShootClose();
+			motors.shooterTop.set(1);
         	robotShooter.openJaws();
 		}
     }
@@ -343,13 +364,13 @@ public class Robot extends IterativeRobot {
     {
 		if(buttonBoard.getDeployHook()) //&& (startTime-hookDuration)>=hookDuration)
 		{
-			System.out.println("Deploying Hook");
+			//System.out.println("Deploying Hook");
 			robotWinch.DeployHook();
 			robotShooter.openJaws();
 			}
 		if(buttonBoard.getStartHanging())
 		{
-			System.out.println("Winch");
+			//System.out.println("Winch");
 			robotWinch.startHanging();
 			robotWinch.retractHook();
 			robotShooter.openJaws();
@@ -379,7 +400,7 @@ public class Robot extends IterativeRobot {
     	
         if(controller2.getRawButton(1))
         {
-        	System.out.println("Gyro Drive");
+        	//System.out.println("Gyro Drive");
         	if(!headingSet)
         	{
         		headingSet = true;

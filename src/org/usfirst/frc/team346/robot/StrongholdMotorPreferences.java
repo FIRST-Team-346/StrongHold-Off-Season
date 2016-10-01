@@ -21,7 +21,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
 
 	public CANTalon shooterTop;
 	public CANTalon shooterBottom;
-//	public CANTalon shooterTrigger;
+	public CANTalon shooterTrigger;
 	
 	public double armVolts = 12.0;
 	
@@ -96,9 +96,9 @@ public class StrongholdMotorPreferences implements MotorPreferences
 	public void initShooterMotors()	{
 		shooterTop = new CANTalon(7);
 		shooterBottom = new CANTalon(8);
+
 //		shooterTrigger = new CANTalon(9);
-	
-/*		
+/*
 		shooterTop.changeControlMode(TalonControlMode.Speed);
 		shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		shooterTop.configEncoderCodesPerRev(1024);
@@ -106,26 +106,30 @@ public class StrongholdMotorPreferences implements MotorPreferences
 		shooterTop.setPID(10, 0, 0);
 //*/
 		
-		shooterTop.changeControlMode(TalonControlMode.PercentVbus);
+//		shooterTop.changeControlMode(TalonControlMode.PercentVbus);
 		
 /*		// SmartDashboard preferences not implemented, doing magic numbers		
 		shooterTop.setPID(Prefs.getDouble("ShootP", 0),
 				Prefs.getDouble("ShootI", 0),
 				Prefs.getDouble("ShootD", 0));
 //*/		
+		shooterTop.changeControlMode(TalonControlMode.PercentVbus);
 		
-		shooterBottom.changeControlMode(TalonControlMode.PercentVbus);
+		shooterBottom.changeControlMode(TalonControlMode.Follower);
+		shooterBottom.set(shooterTop.getDeviceID());
+//		shooterBottom.changeControlMode(TalonControlMode.PercentVbus);
 		
 /*		// SmartDashboard preferences not implemented, doing magic numbers		
 		shooterBottom.setPID(Prefs.getDouble("ShootP", 0), 
 				Prefs.getDouble("ShootI", 0), 
 				Prefs.getDouble("ShootD", 0));
 //*/	
-		
-//		shooterTrigger.changeControlMode(TalonControlMode.Speed);
-//		shooterTrigger.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-//		shooterTrigger.configEncoderCodesPerRev(360);
-//		shooterTrigger.setPID(0, 0, 0);
+/*		
+		shooterTrigger.changeControlMode(TalonControlMode.Speed);
+		shooterTrigger.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		shooterTrigger.configEncoderCodesPerRev(360);
+		shooterTrigger.setPID(0, 0, 0);
+//*/		
 		
 /*		// SmartDashboard preferences not implemented, doing magic numbers		
 		shooterTrigger.setPID(Prefs.getDouble("TriggerP", 0), 
@@ -138,6 +142,7 @@ public class StrongholdMotorPreferences implements MotorPreferences
         shooterTop.enable();
 //        shooterTop.enableControl();
         shooterBottom.enable();
+//        shooterBottom.enableControl();
 //        shooterTrigger.enable();
 	
 	}

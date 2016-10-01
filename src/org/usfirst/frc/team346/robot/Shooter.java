@@ -42,10 +42,11 @@ public class Shooter {
 	
     public void setMotors(double topSpeed, double bottomSpeed, double triggerSpeed)
     {
-    	if(!ShooterTop.isControlEnabled()){
-    		ShooterTop.enableControl();
-    	}
-    	ShooterTop.set(topSpeed);		
+//    	if(!ShooterTop.isControlEnabled()){
+//    		ShooterTop.enableControl();
+//    	}
+    	ShooterTop.set(topSpeed);	
+    	ShooterTop.enable();
         SmartDashboard.putNumber("ShootSetpointTop", topSpeed);
 //    	ShooterBottom.set(-1*ShooterTop.getOutputVoltage());
     	
@@ -53,8 +54,8 @@ public class Shooter {
     }
     
     public void LoadBall(){
-    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-//		setMotors(LoadSetpointTop, LoadSetpointBottom, LoadSetpointTrigger); // Not implementing speed control
+//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+		setMotors(LoadSetpointTop, LoadSetpointBottom, LoadSetpointTrigger); // Not implementing speed control
 		if(Gripper.get())
 		{
 			Trigger.set(false);
@@ -63,8 +64,9 @@ public class Shooter {
     }
     
     public void Stop(){
-    	ShooterTop.disableControl();
-    	ShooterBottom.set(0);
+//    	ShooterTop.disableControl();
+    	setMotors(0,0,0);    	
+//    	ShooterBottom.set(0);
     //	Trigger.set(0);
 
     }
@@ -83,13 +85,13 @@ public class Shooter {
     }*/
     
     public void SpinUp(){
-    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed    	
-//    	setMotors(ShootSetpointTop,ShootSetpointBottom,0); // Not implementing speed control
+//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed    	
+    	setMotors(ShootSetpointTop,ShootSetpointBottom,0); // Not implementing speed control
     	Gripper.set(false);
     }
     public void ShootClose(){
-    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-//    	setMotors(ShootCloseTop,ShootCloseBottom,0); // Not implementing speed control
+//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+    	setMotors(ShootCloseTop,ShootCloseBottom,0); // Not implementing speed control
     	Gripper.set(false);
     }
   //  public boolean IsAbleToFire(){
@@ -108,15 +110,15 @@ public class Shooter {
     			Trigger.set(true);
     		}
     		
-    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+//    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     		
-//        	setMotors(ShootSetpointTop,ShootSetpointBottom,100); // Not implementing speed control
+        	setMotors(ShootSetpointTop,ShootSetpointBottom,100); // Not implementing speed control
     }
     public void ejectBall()
     {
-    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
+//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     	
-//    	setMotors(ShootSetpointTop,ShootSetpointBottom,100);	// Not implementing speed control
+    	setMotors(ShootSetpointTop,ShootSetpointBottom,100);	// Not implementing speed control
     }
     
     public void AutoShootAndFire(){
@@ -133,8 +135,9 @@ public class Shooter {
     	Trigger.set(false);
     }
     public void Portcullis(){
-    ShooterTop.set(portcullis);
-    ShooterBottom.set(0);
+//    ShooterTop.set(portcullis);
+//    ShooterBottom.set(0);
+    	System.out.println("\nPORTCULLIS\n");
     }
 
 	public boolean CanFire()
