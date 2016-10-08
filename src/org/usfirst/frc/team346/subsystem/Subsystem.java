@@ -12,7 +12,19 @@ package org.usfirst.frc.team346.subsystem;
  *
  */
 public interface Subsystem {
-	public void init();
+	
+	/**
+	 * This method should be called during the 
+	 * autonomousPeriodic() and/or teleopPeriodic()
+	 * methods. It is the main entry point for all
+	 * subsystem logic.
+	 */
 	public void runPeriodic();
+	
+	/**
+	 * This method shoudl disable the subsystem, meaning
+	 * all outputs should be zero. This method could be 
+	 * used for any sort of safety driven disable.
+	 */
 	public void disable();
 }

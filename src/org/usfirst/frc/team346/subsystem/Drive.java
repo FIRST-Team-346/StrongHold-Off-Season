@@ -8,8 +8,30 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Preferences;
 
-public class Drive {
+/**
+ * TODO: Change CANTalon objects to "GearBox" objects
+ */
 
+/**
+ * This is the drive-base class for the robot.
+ * 
+ * It is responsible for making the robot move.
+ * 
+ * @author Student
+ *
+ */
+public class Drive implements Subsystem {
+
+	// Stuff from Adam - begin
+	
+	private CANTalon m_leftDriveMaster;
+	private CANTalon m_leftDriveSlave;
+	private CANTalon m_rightDriveMaster;
+	private CANTalon m_rightDriveSlave;	
+	private CANTalon m_gearSolenoid;
+	
+	// Stuff from Adam - end
+	
 	CANTalon LeftMaster;
 	CANTalon RightMaster;
 	DoubleSolenoid SpeedGear;
@@ -20,8 +42,11 @@ public class Drive {
 	boolean lowGear;
 	boolean highGear;
 	
-	public Drive(CANTalon l, CANTalon r, DoubleSolenoid sg, PIDController headingHoldController)
-	{
+	/**
+	 * Default constructor for Drive object. Initializes
+	 * all member variables.
+	 */
+	public Drive() {
 		LeftMaster = l;
 		RightMaster = r;
 		SpeedGear = sg;
@@ -32,6 +57,32 @@ public class Drive {
 		gyroPIDController = headingHoldController;
 	}
 	
+	/**
+	 * This method is the main method behind all of the
+	 * drive-based functions. It should be called during
+	 * autonomous and/or teleoperation periodic methods.
+	 */
+	public void runPeriodic() {
+		
+	}
+	
+	/**
+	 * This method disables the subsystem. This method 
+	 * could be used for any sort of safety driven disable.
+	 */
+	public void disable() {
+		this.m_leftDriveMaster.disable();
+		this.m_leftDriveSlave.disable();
+		this.m_rightDriveMaster.disable();
+		this.m_rightDriveSlave.disable();
+		this.m_gearSolenoid.disable();
+	}
+	
+	/**
+	 * 
+	 * @param left
+	 * @param right
+	 */
 	public void drive(double left, double right)
 	{
 		if (gyroPIDController.isEnabled())
