@@ -2,6 +2,7 @@ package org.usfirst.frc.team346.subsystem;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //TODO: make sure these speeds are rights
 public class Shooter {
@@ -20,9 +21,15 @@ public class Shooter {
     double ShootCloseTop;
     double ShootCloseBottom;
     
-
 	double minSpeedToFire = 4000;
-
+	
+	private CANTalon m_shooterTop;
+	private CANTalon m_shooterBottom;
+	private CANTalon m_shooterTrigger;
+	
+	Gripper = new Solenoid(2,6);
+	Trigger = new Solenoid(2,7);
+	
     public Shooter (CANTalon a, CANTalon b, Solenoid g, Solenoid t)
     {
     	ShooterTop = a;
@@ -38,6 +45,28 @@ public class Shooter {
         ShootCloseBottom = - 50;
         ShootSetpointMaxErrorPercent = .01;
         portcullis = 1800;
+        
+        this.m_shooterTop = new CANTalon(7);
+		this.m_shooterBottom = new CANTalon(8);
+
+		this.m_shooterTop.changeControlMode(TalonControlMode.Speed);
+		this.m_shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		this.m_shooterTop.configEncoderCodesPerRev(1024);
+		this.m_shooterTop.setPID(10, 0, 0);
+
+		
+		this.m_shooterTop.changeControlMode(TalonControlMode.PercentVbus);
+		
+		this.m_shooterTop.changeControlMode(TalonControlMode.PercentVbus);
+		
+		this.m_shooterBottom.changeControlMode(TalonControlMode.Follower);
+		this.m_shooterBottom.set(this.m_shooterTop.getDeviceID());
+		this.m_shooterBottom.changeControlMode(TalonControlMode.PercentVbus);
+
+		this.m_shooterTrigger.changeControlMode(TalonControlMode.Speed);
+		this.m_shooterTrigger.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		this.m_shooterTrigger.configEncoderCodesPerRev(360);
+		this.m_shooterTrigger.setPID(0, 0, 0);
     }
 	
     public void setMotors(double topSpeed, double bottomSpeed, double triggerSpeed)

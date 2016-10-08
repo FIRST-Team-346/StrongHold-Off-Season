@@ -31,6 +31,7 @@ public class Drive implements Subsystem {
 	private CANTalon m_rightDriveMaster;
 	private CANTalon m_rightDriveSlave;	
 	private CANTalon m_gearSolenoid;
+	SpeedGear  = new DoubleSolenoid(1,0,1);
 	
 	// Stuff from Adam - end
 	
