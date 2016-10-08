@@ -39,9 +39,6 @@ import com.ni.vision.NIVision.Image;
  */
 public class Robot extends IterativeRobot {
 
-
-	PiCamera camera;
-
 	StrongholdMotorPreferences motors;
 	StrongholdSolenoidPreferences solenoids;
 	Joystick armcontroller;
@@ -81,13 +78,10 @@ public class Robot extends IterativeRobot {
 	boolean armControl;
 	boolean lastToggleGear;
 	Relay light;
-	USBCamera cam1;
 	Image frame;
 	
 	
     public void robotInit() {
-		camera = new PiCamera();
-		camera.start();
 		motors = new StrongholdMotorPreferences(); // Init all motors
 		solenoids = new StrongholdSolenoidPreferences(); // Init all solenoids
 		robotArm = new Arm(motors.armMotor);
@@ -104,10 +98,7 @@ public class Robot extends IterativeRobot {
         Prefs = Preferences.getInstance();
         gyro = new AnalogGyro(0);
         hookDuration = 0;
-        startTime = 0;
-        time1 = new Timer();
-        temp1 = new AnalogInput(2);
-        temp2 = new AnalogInput(3);
+        
         underPressure = new AnalogInput(1);
         gyro.calibrate();
         //rangeSensor = new Ultrasonic(new DigitalOutput(4), new DigitalInput(3));
@@ -121,48 +112,11 @@ public class Robot extends IterativeRobot {
 
 //        auto = new SimpleStrongholdAutonomous(RobotDrive);
 
-        updater = new SmartDashboardUpdater(temp1, temp2, underPressure, motors, gyroPIDController, controller1, controller2, gyro );
-        
-        chooser = new SendableChooser();
-        //chooser.addDefault("Low Bar Auto", new LookPrettyAuto(RobotDrive, gyro, robotArm, robotShooter));
        
-        chooser.addDefault("Simple Auto",new SimpleStrongholdAutonomous(RobotDrive, gyro, robotArm, robotShooter));
-        //chooser.addObject("Aaron Auto", new AaronStrongholdAutonomous(RobotDrive, gyro, robotArm));
-        //chooser.addObject("Aaron Auto", new DriveAndShootStrongholdAutonomous(RobotDrive, gyro, robotArm, camera, robotShooter));
-        SmartDashboard.putData("Auto mode", chooser);
         
         armControl = false;
-        light = new Relay(1);
-        try {
-            frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-            CameraServer.getInstance().setQuality(5);	// 0-10 LOWER NUMBER = LESS BADNWIDTH
-            cam1 = new USBCamera("cam1");
-            cam1.setFPS(24);
-            cam1.openCamera();
-            cam1.startCapture();	
-        } catch (Exception e) {
-        	// robot.dance
-        }
-        
+        light = new Relay(1);               
     }
-	
-    public void disabledInit() {
-    	System.out.println("Starting disabled periodic");
-    }
-    
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run(); 
-		updater.UpdateSmartDashboard();
-		try {
-	        cam1.getImage(frame);
-	        CameraServer.getInstance().setImage(frame);			
-		} catch (Exception e) {
-			
-		}
-
-        SmartDashboard.putNumber("Arm Position", motors.armMotor.getPosition());
-        
-	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
@@ -228,35 +182,6 @@ public class Robot extends IterativeRobot {
         processWinchInput();
         processShootingInput();
         solenoids.compressor.start();
-        
-        try {
-        	
-        } catch(Exception e) {
-            cam1.getImage(frame);
-            CameraServer.getInstance().setImage(frame);        	
-        }
-
-        /*       
-        //SmartDashboard.putNumber("distance", rangeSensor.getRangeInches());
-        /*SmartDashboard.putNumber("CameraH_Low", 0);
-        SmartDashboard.putNumber("CameraH_High", 0);
-        SmartDashboard.putNumber("CameraS_Low", 0); needed to create specified keys in Smart Dashboard
-        SmartDashboard.putNumber("CameraS_High", 0);
-        SmartDashboard.putNumber("CameraV_Low", 0);
-        SmartDashboard.putNumber("CameraV_High", 0); */
-        /*System.out.println(SmartDashboard.getNumber("CameraH_Low"));
-        System.out.println(SmartDashboard.getNumber("CameraH_High"));
-        System.out.println(SmartDashboard.getNumber("CameraS_Low"));
-        System.out.println(SmartDashboard.getNumber("CameraS_High"));
-        System.out.println(SmartDashboard.getNumber("CameraV_Low"));
-        System.out.println(SmartDashboard.getNumber("CameraV_High")); */
-        //previousLeft = controller1.getRawAxis(1);
-        //previousRight = controller2.getRawAxis(1);
-        updater.UpdateSmartDashboard();
-        SmartDashboard.putNumber("Arm Position", motors.armMotor.get());
-        SmartDashboard.putNumber("WinchPosition", motors.winch.getPosition());
-//        SmartDashboard.putNumber("rollerspeed", motors.shooterTop.getSpeed());
-        SmartDashboard.putNumber("TEST POSITION", 10);        
     }
     
     public void processArmInput(){    	

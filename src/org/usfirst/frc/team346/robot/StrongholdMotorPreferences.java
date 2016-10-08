@@ -9,20 +9,19 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 public class StrongholdMotorPreferences {
 	Preferences Prefs;
 	
-	public CANTalon leftDriveMaster;
-	public CANTalon leftDriveSlave;
+//	public CANTalon leftDriveMaster; /* MOVED */
+//	public CANTalon leftDriveSlave; /* MOVED */
 
-	public CANTalon rightDriveMaster;
-	public CANTalon rightDriveSlave;
+//	public CANTalon rightDriveMaster; /* MOVED */
+//	public CANTalon rightDriveSlave; /* MOVED */
 
-	public CANTalon armMotor;
-	public CANTalon winch;
+//	public CANTalon armMotor; /* MOVED */
+//	public CANTalon winch; /* MOVED */
 
-	public CANTalon shooterTop;
-	public CANTalon shooterBottom;
-	public CANTalon shooterTrigger;
+//	public CANTalon shooterTop; /* MOVED */
+//	public CANTalon shooterBottom; /* MOVED */	
 	
-	public double armVolts = 12.0;
+//	public double armVolts = 12.0; /* MOVED */
 	
 	/**
 	 * Default constructor for StrongholdMotorPreferences object.
@@ -40,10 +39,10 @@ public class StrongholdMotorPreferences {
 	 * Initialize all drive motor settings.
 	 */
 	public void initDriveMotors() {
-		leftDriveMaster = new CANTalon(1);	// Instantiate left master motor
-		leftDriveSlave = new CANTalon(2);	// Instantiate left slave motor
-		rightDriveMaster = new CANTalon(3);	// Instantiate right master motor
-		rightDriveSlave = new CANTalon (4);	// Instantiate right slave motor
+//		leftDriveMaster = new CANTalon(1);	// Instantiate left master motor
+//		leftDriveSlave = new CANTalon(2);	// Instantiate left slave motor
+//		rightDriveMaster = new CANTalon(3);	// Instantiate right master motor
+//		rightDriveSlave = new CANTalon (4);	// Instantiate right slave motor
 		
 		leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);	// Set left master to %Vbus mode
 		leftDriveSlave.changeControlMode(TalonControlMode.Follower);		// Set right slave to follower	
@@ -93,10 +92,10 @@ public class StrongholdMotorPreferences {
 	 * Initialize shooter motor settings
 	 */
 	public void initShooterMotors()	{
-		shooterTop = new CANTalon(7);
-		shooterBottom = new CANTalon(8);
+//		shooterTop = new CANTalon(7);
+//		shooterBottom = new CANTalon(8);
 
-//		shooterTrigger = new CANTalon(9);
+
 /*
 		shooterTop.changeControlMode(TalonControlMode.Speed);
 		shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
