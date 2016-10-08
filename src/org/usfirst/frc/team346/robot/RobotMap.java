@@ -1,5 +1,7 @@
 package org.usfirst.frc.team346.robot;
 
+import edu.wpi.first.wpilibj.CANTalon;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -7,6 +9,7 @@ package org.usfirst.frc.team346.robot;
  * floating around.
  */
 public class RobotMap {
+	
     // Human interface device (HID) ports:
 	public static final int LEFT_JOYSTICK_PORT = 0;
 	public static final int RIGHT_JOIYSTICK_PORT = 1;

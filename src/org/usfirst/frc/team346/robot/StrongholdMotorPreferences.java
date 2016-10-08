@@ -85,7 +85,7 @@ public class StrongholdMotorPreferences {
 		armMotor.enable();			// Enable arm motor output
 		armMotor.enableControl();	// Enable control for arm motor (position control)
 		
-		winch.disable();	// Disable winch motor output		
+		winch.disable();	// Disable  motor output		
 	}
 
 	/**

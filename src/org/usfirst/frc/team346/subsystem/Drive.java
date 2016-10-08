@@ -1,12 +1,14 @@
 package org.usfirst.frc.team346.subsystem;
 
 import org.usfirst.frc.team346.robot.dummyPIDOutput;
+import org.usfirst.frc.team346.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 /**
  * TODO: Change CANTalon objects to "GearBox" objects
@@ -47,23 +49,31 @@ public class Drive implements Subsystem {
 	 * all member variables.
 	 */
 	public Drive() {
-		LeftMaster = l;
-		RightMaster = r;
-		SpeedGear = sg;
+		this.m_leftDriveMaster = new CANTalon(RobotMap.LEFT_DRIVE_MASTER_PORT);		// Instantiate left master motor
+		this.m_leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);		// Set left master to %Vbus mode
+		this.m_leftDriveSlave = new CANTalon(RobotMap.LEFT_DRIVE_SLAVE_PORT);		// Instantiate left slave motor
+		this.m_leftDriveSlave.set(RobotMap.LEFT_DRIVE_SLAVE_PORT);					// Assign left slave's master
+		this.m_leftDriveSlave.changeControlMode(TalonControlMode.Follower);			// Set left slave to follower mode
 		
-		lowGear=true;
+		this.m_leftDriveMaster.enable();	// Enable left master motor
+		this.m_leftDriveSlave.enable();		// Enable left slave motor
 		
-		Gpid = new dummyPIDOutput();
-		gyroPIDController = headingHoldController;
-	}
+		this.m_rightDriveMaster = new CANTalon(RobotMap.RIGHT_DRIVE_MASTER_PORT);	// Instantiate right master motor	
+		this.m_rightDriveMaster.changeControlMode(TalonControlMode.PercentVbus);	// Set right master to %Vbus mode
+		this.m_rightDriveSlave = new CANTalon(RobotMap.RIGHT_DRIVE_SLAVE_PORT);		// Instantiate right slave motor
+		this.m_rightDriveSlave.set(RobotMap.RIGHT_DRIVE_SLAVE_PORT); 				// Assign right slave's master
+		this.m_rightDriveSlave.changeControlMode(TalonControlMode.Follower);		// Set right slave to follower mode
+		
+		this.m_rightDriveMaster.enable();	// Enable right master motor
+		this.m_rightDriveSlave.enable();	// Enable right slave motor
+	}	
 	
 	/**
 	 * This method is the main method behind all of the
 	 * drive-based functions. It should be called during
 	 * autonomous and/or teleoperation periodic methods.
 	 */
-	public void runPeriodic() {
-		
+	public void runPeriodic() {		
 	}
 	
 	/**

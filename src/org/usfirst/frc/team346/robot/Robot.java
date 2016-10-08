@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 		robotShooter = new Shooter(motors.shooterTop, motors.shooterBottom, solenoids.Gripper, solenoids.Trigger);
 	    robotWinch = new Winch(solenoids.WinchGear, motors.winch, solenoids.HookSupply, solenoids.Hook);	
 		lightManager = new LightManager(new Light(solenoids.green, "green"), new Light(solenoids.red,"red"), new Light(solenoids.blue,"blue"));
-    	lightManager.start();    	
+    	lightManager.start();
         
     	
         controller1 = new Joystick(1);
