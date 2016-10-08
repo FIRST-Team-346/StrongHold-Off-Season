@@ -3,69 +3,77 @@ package org.usfirst.frc.team346.subsystem;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 //TODO: make sure these positions are right
 public class Winch {
 
-	DoubleSolenoid WinchGear;
+	DoubleSolenoid m_WinchGear;
 
-	Solenoid HookSupply;
-	DoubleSolenoid Hook;
-	CANTalon winch; 
-	double PositionHang;
+	Solenoid m_HookSupply;
+	DoubleSolenoid m_Hook;
+	CANTalon m_winch; 
+	double m_PositionHang;
 	
-	public Winch (DoubleSolenoid winchGear, CANTalon winchMotor, Solenoid hookSupply, DoubleSolenoid hook)
-	{
-		WinchGear = winchGear;
-		HookSupply = hookSupply;
-		winch = winchMotor;
-		PositionHang = -0.2;
-		Hook = hook;
-		HookSupply.set(false);
+	
+
+	
+	public Winch (DoubleSolenoid winchGear, CANTalon winchMotor, Solenoid hookSupply, DoubleSolenoid hook){
+		m_WinchGear = winchGear;
+		m_HookSupply = hookSupply;
+		m_winch = winchMotor;
+		m_PositionHang = -0.2;
+		m_Hook = hook;
+		m_HookSupply.set(false);
+		
+		this.m_winch.changeControlMode(TalonControlMode.PercentVbus);			// Set winch to %Vbus mode				
+		this.m_winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);	// Set encoder type
+		this.m_winch.configEncoderCodesPerRev(360);								// Set encoder codes per revolution
+		this.m_winch.disable();													// Disable  motor output	
 	}
 	
 	public void resetHook()
 	{
-		Hook.set(DoubleSolenoid.Value.kForward);
-		HookSupply.set(false);
+		m_Hook.set(DoubleSolenoid.Value.kForward);
+		m_HookSupply.set(false);
 		
 	}
 	
 	public void DeployHook()
 	{
 		
-		Hook.set(DoubleSolenoid.Value.kReverse);
-		HookSupply.set(true);
+		m_Hook.set(DoubleSolenoid.Value.kReverse);
+		m_HookSupply.set(true);
 	}
 	public void retractHook(){
 		
-		Hook.set(DoubleSolenoid.Value.kForward);
-		HookSupply.set(true);
+		m_Hook.set(DoubleSolenoid.Value.kForward);
+		m_HookSupply.set(true);
 	}
 	public void normalHook(){
-		Hook.set(DoubleSolenoid.Value.kForward);
+		m_Hook.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void startHanging()
 	{
 		//if (WinchMotor.get() != PositionHang) 
 		{
-			winch.set(-1.0);			
+			m_winch.set(-1.0);			
 		}	
 	}
 	public void reverseWinch(){
-		winch.set(0.3);
+		m_winch.set(0.3);
 	}
 	public void stopTurning(){
-		winch.set(0);
+		m_winch.set(0);
 	}
 	public boolean IsHanging()
 	{
-		return winch.getPosition() >= PositionHang;
+		return m_winch.getPosition() >= m_PositionHang;
 	}	
 	public void reset()
 	{
-		winch.disable();
+		m_winch.disable();
 	}
 	
 }

@@ -45,31 +45,23 @@ public class Robot extends IterativeRobot {
 	Joystick controller1;
 	Joystick controller2;
 	ButtonBoard buttonBoard;
+	
+	
+	
+	
 	PIDController gyroPIDController;
 	Preferences Prefs;
 	Command autonomousCommand;
-	SendableChooser chooser;
 	double RobotSpeedMultiplier;
-	Timer time1;
 	long hookDuration;
 	long startTime;
-	//THERE SHOULD ONLY BE ONE AUTONOMOUS ... RECONSTRUCT THE OBJECT WHEN CHANGING MODES	
-	StrongholdAutonomous auto;
-	AnalogInput temp1;
-	AnalogInput temp2;
 	AnalogInput underPressure;
 	AnalogGyro gyro;
-	AnalogInput gyroTemp;
-	Ultrasonic rangeSensor;
 	double dead;
 	double previousLeft;
 	double previousRight;
 	dummyPIDOutput Gpid;
-	//Shooter shooter;
-	LightManager lightManager;
 	Drive RobotDrive;
-	Light[] lights;
-	SmartDashboardUpdater updater;
 	double heading;
 	boolean headingSet;
 	Arm robotArm;
@@ -77,9 +69,6 @@ public class Robot extends IterativeRobot {
 	Winch robotWinch;
 	boolean armControl;
 	boolean lastToggleGear;
-	Relay light;
-	Image frame;
-	
 	
     public void robotInit() {
 		motors = new StrongholdMotorPreferences(); // Init all motors

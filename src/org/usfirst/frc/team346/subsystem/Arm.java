@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 //TODO: make sure these positions are right.
 public class Arm {
-		
-	CANTalon ArmMotor;
+														// Instantiate winch motor
 	public final double PositionLoad = 176;
 	public final double PositionTravel = 254;
 	public final double PositionShoot = 392;
@@ -25,83 +24,77 @@ public class Arm {
 
 	private CANTalon m_armMotor;
 	
-	public Arm (CANTalon a) {
-		ArmMotor = a;
+	public Arm () {
 		this.m_armMotor = new CANTalon(RobotMap.ARM_MOTOR_PORT);
+		this.m_armMotor.changeControlMode(TalonControlMode.Position);				// Set arm to position mode		
+		this.m_armMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogEncoder);	// Set encoder type		
+		this.m_armMotor.setPID(10, 0, 0.002);										// Set PID parameters
+		this.m_armMotor.enable();													// Enable arm motor output
+		this.m_armMotor.enableControl();											// Enable control for arm motor (position control)
 	}
 	
-	public void setArmPosition(double position)
-	{
-		if (ArmMotor.get() != position) {
-			System.out.println("Moving arm to " + position);
-			ArmMotor.set(position);			
-			System.out.println("Device ID: " + ArmMotor.getDeviceID());
-			System.out.println("Arm enabled: " + ArmMotor.isEnabled());
-			System.out.println("Control enabled: " + ArmMotor.isControlEnabled());
-			System.out.println("P: " + ArmMotor.getP());
-			System.out.println("I: " + ArmMotor.getI());
-			System.out.println("D: " + ArmMotor.getD());
-			System.out.println("Position: " + ArmMotor.getPosition());
-			System.out.println("Set point: " + ArmMotor.getSetpoint());			
+	public void setArmPosition(double position) {
+		if (this.m_armMotor.get() != position) {
+			this.m_armMotor.set(position);
 		}	
 	}
 	
-	public void LoadBall()
-	{
+	public void LoadBall() {
 		setArmPosition(PositionLoad);
 	}
 	
-	public void Travel()
-	{
+	public void Travel() {
 		setArmPosition(PositionTravel);			
 	}
 	
-	public void Shoot()
-	{
+	public void Shoot() {
 		setArmPosition(PositionShoot);
 	}
 	
-	public void GateDown()
-	{
+	public void GateDown() {
 		setArmPosition(PositionGateDown);
 	}
-	public void Lift(){
+	public void Lift() {
 		setArmPosition(PositionLift);
 	}
-	public boolean IsAbleToFire(){
+	
+	public boolean IsAbleToFire() {
 		if(ArmMotor.get() == PositionShoot) // need to create dead zone?
 			return true;
 		return false;
 	}
 	
-	public void GateUp()
-	{
+	public void GateUp() {
 		setArmPosition(PositionGateUp);
 	}
 	
-	public boolean IsAbleToLift()
-	{	if(ArmMotor.get() == PositionGateDown) //need to create dead zone?
+	public boolean IsAbleToLift() {	
+		//need to create dead zone?
+		if(ArmMotor.get() == PositionGateDown) {
 			return true;
+		}
+		
 		return false;
 	}
 	
-	public void Stop(){
+	public void Stop() {
     	ArmMotor.set(0);
-    	if (ArmMotor.isEnabled())
+    	if (ArmMotor.isEnabled()) {
     		ArmMotor.disable();
     	}
+	}
 	
-	public void Reset()
-	{
+	public void Reset() {
 		//setArmPosition(PositionReset);
 		setArmPosition(Position45);
 	}
+	
 	//public void fourtyFiveDegrees(){
 	//	setArmPosition(Position45);
 	//}
-	public void hang(){
-		if(ArmMotor.getControlMode() != TalonControlMode.PercentVbus)
-		{	
+	
+	public void hang() {
+		if(ArmMotor.getControlMode() != TalonControlMode.PercentVbus) {	
 			ArmMotor.changeControlMode(TalonControlMode.PercentVbus);
 			ArmMotor.setVoltageRampRate(24);
 		}
