@@ -29,9 +29,9 @@ public class Drive implements Subsystem {
 	private CANTalon m_leftDriveMaster;
 	private CANTalon m_leftDriveSlave;
 	private CANTalon m_rightDriveMaster;
-	private CANTalon m_rightDriveSlave;	
+	private CANTalon m_rightDriveSlave;
 	private CANTalon m_gearSolenoid;
-	SpeedGear  = new DoubleSolenoid(1,0,1);
+	DoubleSolenoid m_speedGear  = new DoubleSolenoid(1,0,1);
 	
 	// Stuff from Adam - end
 	
@@ -90,7 +90,7 @@ public class Drive implements Subsystem {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param left
 	 * @param right
 	 */
