@@ -104,21 +104,7 @@ public class Robot extends IterativeRobot {
     		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.EXTEND);
     	} else {
     		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.RETRACT);
-    	}
-/*    	
-    	if (this.m_buttonBoard.getRawButton(1)) {
-    		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.LOAD_TOP);
-    	}    	
-    	
-    	
-    	
-    	// Old stuff
-        processDriveLogic();
-        processArmInput();
-        processWinchInput();
-        processShootingInput();
-
-*/        
+    	}        
     }
 
 

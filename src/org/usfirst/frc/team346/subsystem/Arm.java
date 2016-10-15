@@ -75,7 +75,11 @@ public class Arm {
 	 * @param _position target position of the arm
 	 */
 	public void setArmPosition(double _position) {
-		if (this.m_armMotor.get() != _position) {
+		if (this.getArmPosition() != _position) {
+			
+			System.out.println("Setting arm to: " + this.m_armMotor.getSetpoint());
+			System.out.println("Current arm position: " + this.m_armMotor.get());			
+			
 			this.m_armMotor.set(_position);
 		}	
 	}	
@@ -86,6 +90,6 @@ public class Arm {
 	 * @return the current position of the arm
 	 */
 	public double getArmPosition() {
-		return this.m_armMotor.getPosition(); 
+		return this.m_armMotor.get(); 
 	}
 }
