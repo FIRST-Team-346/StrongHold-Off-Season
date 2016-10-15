@@ -1,4 +1,4 @@
-/*package org.usfirst.frc.team346.subsystem;
+package org.usfirst.frc.team346.subsystem;
 
 import org.usfirst.frc.team346.robot.RobotMap;
 
@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 //TODO: make sure these positions are right.
 public class Arm {
-														// Instantiate winch motor
+/*														// Instantiate winch motor
 	public final double PositionLoad = 176;
 	public final double PositionTravel = 254;
 	public final double PositionShoot = 392;
@@ -110,4 +110,4 @@ public class Arm {
 //			m_armMotor.disableControl();
 //		}
 //	}
-//}*/
+}

@@ -5,8 +5,8 @@ import org.usfirst.frc.team346.subsystem.Drive;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
-public class AaronStrongholdAutonomous implements StrongholdAutonomous{
-
+public class AaronStrongholdAutonomous {
+/*
 	Drive RobotDrive;
 	Arm Arm;
 	Gyro gyro;
@@ -50,5 +50,5 @@ public class AaronStrongholdAutonomous implements StrongholdAutonomous{
 		{
 			RobotDrive.drive(0, 0);
 		}
-	}
+	}*/
 }

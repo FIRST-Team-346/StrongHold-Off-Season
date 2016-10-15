@@ -6,8 +6,8 @@ import org.usfirst.frc.team346.subsystem.Shooter;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
-public class LookPrettyAuto implements StrongholdAutonomous {
-
+public class LookPrettyAuto {
+/*
 	Drive RobotDrive;
 	Gyro gyro;
 	Arm Arm;
@@ -39,7 +39,7 @@ public class LookPrettyAuto implements StrongholdAutonomous {
 			RobotDrive.HighGear();
 			Arm.Shoot();
 		}
-	}
+	}*/
 }
 
 	

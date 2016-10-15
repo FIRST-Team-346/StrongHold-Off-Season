@@ -16,11 +16,11 @@ public class RobotMap {
 	public static final int BUTTON_BOARD_PORT = 2;
 	
 	// Motor controller ports:
-	public static final int LEFT_DRIVE_MASTER_PORT = 1;
-	public static final int LEFT_DRIVE_SLAVE_PORT = 2;
+	public static final int LEFT_DRIVE_MASTER_PORT = 3;
+	public static final int LEFT_DRIVE_SLAVE_PORT = 4;
 	
-	public static final int RIGHT_DRIVE_MASTER_PORT = 3;
-	public static final int RIGHT_DRIVE_SLAVE_PORT = 4;
+	public static final int RIGHT_DRIVE_MASTER_PORT = 1;
+	public static final int RIGHT_DRIVE_SLAVE_PORT = 2;
 	
 	public static final int ARM_MOTOR_PORT = 5;
 	

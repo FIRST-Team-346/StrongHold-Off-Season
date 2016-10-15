@@ -1,15 +1,16 @@
 
 package org.usfirst.frc.team346.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 //import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Drive;
+import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
 //import org.usfirst.frc.team346.subsystem.Shooter;
 //import org.usfirst.frc.team346.subsystem.Shooter.ShooterSpeed;
 import org.usfirst.frc.team346.subsystem.Winch;
 
 import edu.wpi.first.wpilibj.Joystick;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +31,9 @@ public class Robot extends IterativeRobot {
 //	private Shooter m_shooterSubsystem;	// Shooter subsystem
 	private Winch m_winchSubsystem; 	// Winch subsystem
 	
+	// Compressor declaration
+	private Compressor m_compressor;	// Pneumatic compressor
+	
 	// Other declarations
 	
 	/**
@@ -49,18 +53,12 @@ public class Robot extends IterativeRobot {
     	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
 //    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
 //    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
-//    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem                 
+//    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
+    	
+    	// Compressor instantiations
+    	this.m_compressor = new Compressor(RobotMap.COMPRESSOR_PORT);		// Instantiate the pneumatic compressor
     }
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
-	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
-	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
-	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the switch structure below with additional strings & commands.
-	 */
     public void autonomousInit() {
  /*  	
         auto = (StrongholdAutonomous) chooser.getSelected();
@@ -110,7 +108,14 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	this.m_compressor.start();
     	this.m_driveSubsystem.setDrive(this.m_leftJoystick.getY(), this.m_rightJoystick.getY());
+    	
+    	if (this.m_leftJoystick.getRawButton(1)) {
+    		this.m_driveSubsystem.setGear(GearSpeed.HIGH_SPEED);    		
+    	} else {
+    		this.m_driveSubsystem.setGear(GearSpeed.LOW_SPEED);
+    	}
     	
 /*    	
     	if (this.m_buttonBoard.getRawButton(1)) {

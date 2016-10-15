@@ -7,8 +7,8 @@ import org.usfirst.frc.team346.subsystem.Shooter;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
-public class DriveAndShootStrongholdAutonomous implements StrongholdAutonomous {
-
+public class DriveAndShootStrongholdAutonomous {
+/*
 	Drive RobotDrive;
 	Gyro gyro;
 	Arm Arm;
@@ -93,7 +93,7 @@ public class DriveAndShootStrongholdAutonomous implements StrongholdAutonomous {
 				}
 			}
 		}	
-	}
+	}*/
 }
 
 	

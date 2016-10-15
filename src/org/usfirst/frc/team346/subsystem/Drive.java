@@ -14,9 +14,8 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
 /**
  * TODO: Change CANTalon objects to "GearBox" objects
- */
-/**
- * TODO: Figure out a way to use the runPeriodic() with alll subsystems
+ * TODO: Figure out a way to use the runPeriodic() with all subsystems
+ * TODO: Implement gyro-based heading hold
  */
 
 /**
@@ -29,12 +28,14 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
  */
 public class Drive implements Subsystem {
 	
+	// Motor controller declarations
 	private CANTalon m_leftDriveMaster;
 	private CANTalon m_leftDriveSlave;
 	private CANTalon m_rightDriveMaster;
-	private CANTalon m_rightDriveSlave;	
-	private DoubleSolenoid m_gearSolenoid;
+	private CANTalon m_rightDriveSlave;
 	
+	// Solenoid declarations
+	private DoubleSolenoid m_gearSolenoid;
 	
 	AnalogGyro HeadingGyro;
 	dummyPIDOutput Gpid;
@@ -43,6 +44,12 @@ public class Drive implements Subsystem {
 	boolean lowGear;
 	boolean highGear;
 	
+	/**
+	 * Enumeration for transmission speeds.
+	 * 
+	 * @author Adam Morrissett
+	 *
+	 */
 	public static enum GearSpeed {
 		HIGH_SPEED,
 		LOW_SPEED;
@@ -55,7 +62,7 @@ public class Drive implements Subsystem {
 	 */
 	public Drive() {
 		this.m_leftDriveMaster = new CANTalon(RobotMap.LEFT_DRIVE_MASTER_PORT);		// Instantiate left master motor
-		this.m_leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);		// Set left master to %Vbus mode
+		this.m_leftDriveMaster.changeControlMode(TalonControlMode.PercentVbus);		// Set left master to %Vbus mode	
 		
 		this.m_leftDriveSlave = new CANTalon(RobotMap.LEFT_DRIVE_SLAVE_PORT);		// Instantiate left slave motor		
 		this.m_leftDriveSlave.changeControlMode(TalonControlMode.Follower);			// Set left slave to follower mode
@@ -100,7 +107,7 @@ public class Drive implements Subsystem {
 	 */
 	@Deprecated
 	public void setDrive(double _leftYValue, double _rightYValue) {
-		this.m_leftDriveMaster.set(_leftYValue);
+		this.m_leftDriveMaster.set(-1 * _leftYValue);
 		this.m_rightDriveMaster.set(_rightYValue);
 	}
 	
@@ -140,28 +147,11 @@ public class Drive implements Subsystem {
 	public void setGear(GearSpeed _gearSpeed) {
 		switch(_gearSpeed) {		
 			case HIGH_SPEED : {
-				this.m_gearSolenoid.set(Value.kForward);
-			}; break;
-			case LOW_SPEED : {
 				this.m_gearSolenoid.set(Value.kReverse);
 			}; break;
+			case LOW_SPEED : {
+				this.m_gearSolenoid.set(Value.kForward);
+			}; break;
 		}
-	}
-	
-	/**
-	 * 
-	 * @param left
-	 * @param right
-	 */
-	public void drive(double left, double right)
-	{
-		if (gyroPIDController.isEnabled())
-		{
-			gyroPIDController.disable();
-    			Gpid.out = 0;
-		}
-
-		//LeftMaster.set(left);
-	    //RightMaster.set(right);
-	}						
+	}					
 }

@@ -1,4 +1,4 @@
-/*package org.usfirst.frc.team346.subsystem;
+package org.usfirst.frc.team346.subsystem;
 
 import org.usfirst.frc.team346.robot.RobotMap;
 
@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Shooter implements Subsystem { 
-    
+public class Shooter  { 
+/*    
 	*//**
 	 * Enumeration for shooter speeds.
 	 * 
@@ -252,5 +252,5 @@ public class Shooter implements Subsystem {
 	public boolean CanFire()
 	{
 		return m_topRoller.getSpeed() > minSpeedToFire;
-	}
-}*/
+	}*/
+}
