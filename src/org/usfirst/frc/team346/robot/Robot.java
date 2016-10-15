@@ -3,11 +3,12 @@ package org.usfirst.frc.team346.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import org.usfirst.frc.team346.subsystem.Arm;
+
+import org.usfirst.frc.team346.subsystem.Arm;
+import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
-//import org.usfirst.frc.team346.subsystem.Shooter;
-//import org.usfirst.frc.team346.subsystem.Shooter.ShooterSpeed;
+import org.usfirst.frc.team346.subsystem.Shooter;
 import org.usfirst.frc.team346.subsystem.Winch;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,8 +28,8 @@ public class Robot extends IterativeRobot {
 
 	// Subsystem declarations
 	private Drive m_driveSubsystem;		// Drive subsystem
-//	private Arm m_armSubsystem;			// Arm subsystem
-//	private Shooter m_shooterSubsystem;	// Shooter subsystem
+	private Arm m_armSubsystem;			// Arm subsystem
+	private Shooter m_shooterSubsystem;	// Shooter subsystem
 	private Winch m_winchSubsystem; 	// Winch subsystem
 	
 	// Compressor declaration
@@ -51,7 +52,7 @@ public class Robot extends IterativeRobot {
     	
     	// Subsystem instantiations
     	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
-//    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
+    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
 //    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
 //    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
     	
@@ -115,6 +116,22 @@ public class Robot extends IterativeRobot {
     		this.m_driveSubsystem.setGear(GearSpeed.HIGH_SPEED);    		
     	} else {
     		this.m_driveSubsystem.setGear(GearSpeed.LOW_SPEED);
+    	}
+    	
+    	if (this.m_buttonBoard.getRawButton(8)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD.getPosition());
+    		
+    	} else if (this.m_buttonBoard.getRawButton(9)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.CLIMB.getPosition());
+    		
+    	} else if (this.m_buttonBoard.getRawButton(10)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT.getPosition());
+    		
+    	} else if (this.m_buttonBoard.getRawButton(11)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.START.getPosition());
+    		
+    	} else if (this.m_buttonBoard.getRawButton(12)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL.getPosition());
     	}
     	
 /*    	
