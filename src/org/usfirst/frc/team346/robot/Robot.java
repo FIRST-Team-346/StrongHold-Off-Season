@@ -38,39 +38,39 @@ import com.ni.vision.NIVision.Image;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	// Human interface devices (HIDs) declarations
+	private Joystick m_leftJoystick;	// Left joystick on the driver station
+	private Joystick m_rightJoystick;	// Right joystick on the driver station
+	private Joystick m_buttonBoard;		// Button board on the drive station
 
-	StrongholdMotorPreferences motors;
-	StrongholdSolenoidPreferences solenoids;
-	Joystick armcontroller;
-	Joystick controller1;
-	Joystick controller2;
-	ButtonBoard buttonBoard;
+	// Subsystem declarations
+	private Drive m_driveSubsystem;		// Drive subsystem
+	private Arm m_armSubsystem;			// Arm subsystem
+	private Shooter m_shooterSubsystem;	// Shooter subsystem
+	private Winch m_winchSubsystem; 	// Winch subsystem
 	
+	// Other declarations
 	
-	
-	
-	PIDController gyroPIDController;
-	Preferences Prefs;
-	Command autonomousCommand;
-	double RobotSpeedMultiplier;
-	long hookDuration;
-	long startTime;
-	AnalogInput underPressure;
-	AnalogGyro gyro;
-	double dead;
-	double previousLeft;
-	double previousRight;
-	dummyPIDOutput Gpid;
-	Drive RobotDrive;
-	double heading;
-	boolean headingSet;
-	Arm robotArm;
-	Shooter robotShooter;
-	Winch robotWinch;
-	boolean armControl;
-	boolean lastToggleGear;
-	
+	/**
+	 * This is the main initialization method. This method is 
+	 * called when the robot first starts up. Do not put any 
+	 * time-dependent variables in here because the robot will 
+	 * sit indefinitely after calling this method.
+	 */
     public void robotInit() {
+    	
+    	// HID instantiations
+    	this.m_leftJoystick = new Joystick(RobotMap.LEFT_JOYSTICK_PORT); 	// Init the left joystick
+    	this.m_rightJoystick = new Joystick(RobotMap.RIGHT_JOYSTICK_PORT);  // Init the right joystick
+    	this.m_buttonBoard = new Joystick(RobotMap.BUTTON_BOARD_PORT);		// Init the Button Board
+    	
+    	// Subsystem instantiations
+    	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
+    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
+    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
+    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
+    	
+    	// Old stuff below
 		motors = new StrongholdMotorPreferences(); // Init all motors
 		solenoids = new StrongholdSolenoidPreferences(); // Init all solenoids
 		robotArm = new Arm(motors.armMotor);
@@ -163,6 +163,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	myDrive.runPeriodic();
+    	myArm.runPreriodic();
     	
     	RobotSpeedMultiplier = Prefs.getDouble("RobotSpeedMuliplier",100);
         Scheduler.getInstance().run();

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//TODO: make sure these speeds are rights
+
 public class Shooter {
 
     double m_loadSetpointTop;
@@ -19,35 +19,18 @@ public class Shooter {
     
 	double minSpeedToFire = 4000;
 	
-	private CANTalon m_shooterTop;
-	private CANTalon m_shooterBottom;
-
+	// Motor controller declarations
+	private CANTalon m_topRoller;
+	private CANTalon m_bottomRoller;
 	
-    public Shooter (CANTalon a, CANTalon b, Solenoid g, Solenoid t)
-    {
-    	ShooterTop = a;
-    	ShooterBottom = b;
-    	Gripper = g;
-    	Trigger = t;
-    	LoadSetpointTop = 3600; //need to set these values later
-        LoadSetpointBottom = 1000;
-        LoadSetpointTrigger = -1000;
-        ShootSetpointTop = -8000;
-        ShootSetpointBottom = -100;
-        ShootCloseTop = -4200;
-        ShootCloseBottom = - 50;
-        ShootSetpointMaxErrorPercent = .01;
-        portcullis = 1800;
-=======
-	private Solenoid m_shooterGripper = new Solenoid(2,6);
-	private Solenoid m_shooterTrigger = new Solenoid(2,7);
+	// Solenoid declarations
+	private Solenoid m_clawGrip;
+	private Solenoid m_shooterTrigger;
 	
-    public Shooter (CANTalon a, CANTalon b, Solenoid g, Solenoid t)
-    {
-    	m_shooterTop = a;
-    	m_shooterBottom = b;
-    	m_shooterGripper = g;
-    	m_shooterTrigger = t;
+    public Shooter() {
+    	
+    	
+    	// Old stuff
     	m_loadSetpointTop = 3600; //need to set these values later
     	m_loadSetpointBottom = 1000;
     	m_loadSetpointshooterTrigger = -1000;
@@ -57,7 +40,6 @@ public class Shooter {
     	m_shootCloseBottom = - 50;
     	m_shootSetpointMaxErrorPercent = .01;
     	m_portcullis = 1800;
->>>>>>> origin/master
         
         this.m_shooterTop = new CANTalon(7);
 		this.m_shooterBottom = new CANTalon(8);
@@ -87,8 +69,8 @@ public class Shooter {
 //    	if(!ShooterTop.isControlEnabled()){
 //    		ShooterTop.enableControl();
 //    	}
-    	ShooterTop.set(topSpeed);	
-    	ShooterTop.enable();
+    	m_shooterTop.set(topSpeed);	
+    	m_shooterTop.enable();
         SmartDashboard.putNumber("ShootSetpointTop", topSpeed);
 //    	ShooterBottom.set(-1*ShooterTop.getOutputVoltage());
     	
@@ -97,19 +79,11 @@ public class Shooter {
     
     public void LoadBall(){
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-<<<<<<< HEAD
-		setMotors(LoadSetpointTop, LoadSetpointBottom, LoadSetpointTrigger); // Not implementing speed control
-		if(Gripper.get())
-		{
-			Trigger.set(false);
-			Gripper.set(false);
-=======
 		setMotors(m_loadSetpointTop, m_loadSetpointBottom, m_loadSetpointshooterTrigger); // Not implementing speed control
 		if(m_shooterGripper.get())
 		{
 			m_shooterTrigger.set(false);
 			m_shooterGripper.set(false);
->>>>>>> origin/master
 		}
     }
     
@@ -123,19 +97,11 @@ public class Shooter {
     
     public void closeJaws(){
     
-<<<<<<< HEAD
-    	Gripper.set(true);
-    	
-    }
-    public void openJaws(){
-    	Gripper.set(false);
-=======
     	m_shooterGripper.set(true);
     	
     }
     public void openJaws(){
     	m_shooterGripper.set(false);
->>>>>>> origin/master
     }
   /*  public void GripBall (){
     		shooterGripper.set(true);
@@ -143,16 +109,7 @@ public class Shooter {
     }*/
     
     public void SpinUp(){
-//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed    	
-<<<<<<< HEAD
-    	setMotors(ShootSetpointTop,ShootSetpointBottom,0); // Not implementing speed control
-    	Gripper.set(false);
-    }
-    public void ShootClose(){
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	setMotors(ShootCloseTop,ShootCloseBottom,0); // Not implementing speed control
-    	Gripper.set(false);
-=======
     	setMotors(m_shootSetpointTop,m_shootSetpointBottom,0); // Not implementing speed control
     	m_shooterGripper.set(false);
     }
@@ -160,7 +117,6 @@ public class Shooter {
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     	setMotors(m_shootCloseTop,m_shootCloseBottom,0); // Not implementing speed control
     	m_shooterGripper.set(false);
->>>>>>> origin/master
     }
   //  public boolean IsAbleToFire(){
     	/*if((ShooterTop.getSpeed()>=ShootSetpointTop - (ShootSetpointTop * ShootSetpointMaxErrorPercent)) &&
@@ -171,29 +127,21 @@ public class Shooter {
     
     public void Fire()
     {
-
-<<<<<<< HEAD
-    		if(Gripper.get())
-    		{
-    			Gripper.set(false);
-    			Trigger.set(true);
-=======
     		if(m_shooterGripper.get())
     		{
     			m_shooterGripper.set(false);
     			m_shooterTrigger.set(true);
->>>>>>> origin/master
     		}
     		
 //    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     		
-        	setMotors(ShootSetpointTop,ShootSetpointBottom,100); // Not implementing speed control
+        	setMotors(m_shootSetpointTop,m_shootSetpointBottom,100); // Not implementing speed control
     }
     public void ejectBall()
     {
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     	
-    	setMotors(ShootSetpointTop,ShootSetpointBottom,100);	// Not implementing speed control
+    	setMotors(m_shootSetpointTop,m_shootSetpointBottom,100);	// Not implementing speed control
     }
     
     public void AutoShootAndFire(){
@@ -202,20 +150,13 @@ public class Shooter {
 	{
 		Fire();
 	}
+	
     }
-<<<<<<< HEAD
-    public void trigger(){
-    	Trigger.set(true);
-    }
-    public void triggerFalse(){
-    	Trigger.set(false);
-=======
     public void shooterTrigger(){
     	m_shooterTrigger.set(true);
     }
     public void shooterTriggerFalse(){
     	m_shooterTrigger.set(false);
->>>>>>> origin/master
     }
     public void Portcullis(){
 //    ShooterTop.set(portcullis);
@@ -225,6 +166,6 @@ public class Shooter {
 
 	public boolean CanFire()
 	{
-		return ShooterTop.getSpeed() > minSpeedToFire;
+		return m_shooterTop.getSpeed() > minSpeedToFire;
 	}
 }

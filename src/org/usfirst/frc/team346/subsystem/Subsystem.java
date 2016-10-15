@@ -22,9 +22,17 @@ public interface Subsystem {
 	public void runPeriodic();
 	
 	/**
-	 * This method shoudl disable the subsystem, meaning
+	 * This method should disable the subsystem, meaning
 	 * all outputs should be zero. This method could be 
 	 * used for any sort of safety driven disable.
 	 */
 	public void disable();
+	
+	/**
+	 * This method should enable the subsystem, meaning
+	 * all outputs are allowed to actually drive the 
+	 * physical components. This method should be used
+	 * right after the constructor.
+	 */
+	public void enable();
 }

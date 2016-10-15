@@ -12,7 +12,7 @@ public class RobotMap {
 	
     // Human interface device (HID) ports:
 	public static final int LEFT_JOYSTICK_PORT = 0;
-	public static final int RIGHT_JOIYSTICK_PORT = 1;
+	public static final int RIGHT_JOYSTICK_PORT = 1;
 	public static final int BUTTON_BOARD_PORT = 2;
 	
 	// Motor controller ports:
@@ -24,8 +24,8 @@ public class RobotMap {
 	
 	public static final int ARM_MOTOR_PORT = 5;
 	
-	public static final int TOP_SHOOTER_PORT = 7;
-	public static final int BOTTOM_SHOOTER_PORT = 8;	
+	public static final int SHOOTER_TOP_ROLLER_PORT = 7;
+	public static final int SHOOTER_BOTTOM_ROLLER_PORT = 8;	
 	
 	public static final int WINCH_PORT = 6;
 	
@@ -34,12 +34,12 @@ public class RobotMap {
 	 */
 	
 	// Pneumatic solenoid modules and ports:
-	public static final int DRIVE_TRANSMISSION_MODULE = 1;
-	public static final int DRIVE_TRANSMISSION_PORT_1 = 0;
-	public static final int DRIVE_TRANSMISSION_PORT_2 = 1;
+	public static final int DRIVE_SOLENOID_MODULE = 1;
+	public static final int DRIVE_SOLENOID_PORT_1 = 0;
+	public static final int DRIVE_SOLENOID_PORT_2 = 1;
 	
-	public static final int GRIPPER_MODULE = 2;
-	public static final int GRIPPER_PORT = 6;
+	public static final int SHOOTER_CLAW_GRIPPER_MODULE = 2;
+	public static final int SHOOTER_CLAW_GRIPPER_PORT = 6;
 	
 	public static final int HOOK_MODULE = 1;
 	public static final int HOOK_PORT_1 = 4;
@@ -48,12 +48,25 @@ public class RobotMap {
 	public static final int HOOK_SUPPLY_MODULE = 1;
 	public static final int HOOK_SUPPLY_PORT = 2;
 	
-	public static final int TRIGGER_MODULE = 2;
-	public static final int TRIGGER_PORT = 7;	
+	public static final int SHOOTER_TRIGGER_MODULE = 2;
+	public static final int SHOOTER_TRIGGER_PORT = 7;	
 	
 	public static final int WINCH_LATCH_MODULE = 2;
 	public static final int WINCH_LATCH_PORT = 4;	
 	
 	// Compressor port:
 	public static final int COMPRESSOR_PORT = 2;
+	
+	// Shooter encoder parameters:
+	public static final int SHOOTER_TOP_ROLLER_CODES_PER_REV = 1024;
+	public static final int SHOOTER_BOTTOM_ROLLER_CODES_PER_REV = 360;
+	
+	// Shooter PID parameters:
+	public static final int SHOOTER_TOP_ROLLER_PID_P = 10;
+	public static final int SHOOTER_TOP_ROLLER_PID_I = 0;
+	public static final int SHOOTER_TOP_ROLLER_PID_D = 0;
+	
+	public static final int SHOOTER_BOTTOM_ROLLER_PID_P = 0;
+	public static final int SHOOTER_BOTTOM_ROLLER_PID_I = 0;
+	public static final int SHOOTER_BOTTOM_ROLLER_PID_D = 0;
 }
