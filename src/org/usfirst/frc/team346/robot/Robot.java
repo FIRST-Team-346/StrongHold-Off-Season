@@ -9,9 +9,12 @@ import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
 import org.usfirst.frc.team346.subsystem.Shooter;
+import org.usfirst.frc.team346.subsystem.Shooter.JawPosition;
+import org.usfirst.frc.team346.subsystem.Shooter.TriggerPosition;
 import org.usfirst.frc.team346.subsystem.Winch;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,8 +38,6 @@ public class Robot extends IterativeRobot {
 	// Compressor declaration
 	private Compressor m_compressor;	// Pneumatic compressor
 	
-	// Other declarations
-	
 	/**
 	 * This is the main initialization method. This method is 
 	 * called when the robot first starts up. Do not put any 
@@ -53,56 +54,11 @@ public class Robot extends IterativeRobot {
     	// Subsystem instantiations
     	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
     	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
-//    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
+    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
 //    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
     	
     	// Compressor instantiations
     	this.m_compressor = new Compressor(RobotMap.COMPRESSOR_PORT);		// Instantiate the pneumatic compressor
-    }
-
-    public void autonomousInit() {
- /*  	
-        auto = (StrongholdAutonomous) chooser.getSelected();
-        gyro.initGyro();
-
-        gyroPIDController.setPID(Prefs.getDouble("GyroP", 0), Prefs.getDouble("GyroI", 0), Prefs.getDouble("GyroD", 0));
-        if (autonomousCommand != null) autonomousCommand.start();
-        gyroPIDController.setSetpoint(gyro.getAngle());
-        //gyroPID.reset();
-        time1.reset();
-        time1.start();
-//*/     
-    }
-
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-//        auto.DoAutonomousLogic(time1.get()); 
-        //SmartDashboard.putNumber("Timer1", time1.get());
-    	
-    }
-
-    public void teleopInit() {
-/*    	
-		// This makes sure that the autonomous stops running when
-    	// tile open starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-    	if (autonomousCommand != null) autonomousCommand.cancel();
-    	        dead = Prefs.getDouble("dead", 0);
-        gyroPIDController.setPID(Prefs.getDouble("GyroP", 0), Prefs.getDouble("GyroI", 0), Prefs.getDouble("GyroD", 0));
-
-        armControl = false;
-        startTime = System.currentTimeMillis();
-        motors.winch.reset();
-//        motors.shooterTop.reset();
-        motors.shooterTop.enable();
-        motors.setPID();
-        motors.winch.enable();
-        robotWinch.resetHook();
-*/        
-        System.out.println("Starting teleop periodic");
     }
 
     /**
@@ -112,12 +68,14 @@ public class Robot extends IterativeRobot {
     	this.m_compressor.start();
     	this.m_driveSubsystem.setDrive(this.m_leftJoystick.getY(), this.m_rightJoystick.getY());
     	
+    	// Drive speed events
     	if (this.m_leftJoystick.getRawButton(1)) {
     		this.m_driveSubsystem.setGear(GearSpeed.HIGH_SPEED);    		
     	} else {
     		this.m_driveSubsystem.setGear(GearSpeed.LOW_SPEED);
     	}
     	
+    	// Arm position events
     	if (this.m_buttonBoard.getRawButton(8)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD.getPosition());
     		
@@ -132,8 +90,21 @@ public class Robot extends IterativeRobot {
     		
     	} else if (this.m_buttonBoard.getRawButton(12)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL.getPosition());
+    	}    	    	    	   
+    	
+    	// Jaw open/close events
+    	if (this.m_buttonBoard.getRawButton(3)) {
+    		this.m_shooterSubsystem.setJawPosition(JawPosition.OPEN);
+    	} else {
+    		this.m_shooterSubsystem.setJawPosition(JawPosition.CLOSE);
     	}
     	
+    	// Shooting events
+    	if (this.m_buttonBoard.getRawButton(2) && this.m_shooterSubsystem.getJawPosition() == JawPosition.OPEN) {
+    		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.EXTEND);
+    	} else {
+    		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.RETRACT);
+    	}
 /*    	
     	if (this.m_buttonBoard.getRawButton(1)) {
     		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.LOAD_TOP);
@@ -142,18 +113,14 @@ public class Robot extends IterativeRobot {
     	
     	
     	// Old stuff
-    	myDrive.runPeriodic();
-    	myArm.runPreriodic();
-    	
-    	RobotSpeedMultiplier = Prefs.getDouble("RobotSpeedMuliplier",100);
-        Scheduler.getInstance().run();
         processDriveLogic();
         processArmInput();
         processWinchInput();
         processShootingInput();
-        solenoids.compressor.start();
+
 */        
     }
+
 
     
 /*    
@@ -238,18 +205,7 @@ public class Robot extends IterativeRobot {
 			motors.shooterTop.enableControl();
 			motors.shooterBottom.enableControl();
 			motors.shooterTop.set(1);
-			System.out.println("Top shooter ID: " + motors.shooterTop.getDeviceID());
-			System.out.println("Top shooter enabled: " + motors.shooterTop.isEnabled());
-			System.out.println("Top shooter control enabled: " + motors.shooterTop.isControlEnabled());
-			System.out.println("Top shooter mode: " + motors.shooterTop.getControlMode());
-			System.out.println("Top shooter vout: " + motors.shooterTop.getOutputVoltage());
-			System.out.println("Top shooter setpoint: " + motors.shooterTop.getSetpoint());
-			System.out.println("Bottom shooter ID: " + motors.shooterBottom.getDeviceID());
-			System.out.println("Bottom shooter enabled: " + motors.shooterBottom.isEnabled());
-			System.out.println("Bottom shooter control enabled: " + motors.shooterBottom.isControlEnabled());
-			System.out.println("Bottom shooter mode: " + motors.shooterBottom.getControlMode());
-			System.out.println("Bottom shooter vout: " + motors.shooterBottom.getOutputVoltage());
-			System.out.println("Bottom shooter setpoint: " + motors.shooterBottom.getSetpoint());
+			
 			robotShooter.openJaws();
 			light.set(Relay.Value.kForward);
 		}
@@ -287,38 +243,6 @@ public class Robot extends IterativeRobot {
 			robotWinch.reverseWinch();
 			robotShooter.openJaws();
 		}
-    }
-    
-    public void processDriveLogic(){
-*/
-  /*  
-    	if(controller1.getRawButton(1) && !lastToggleGear)
-        {
-        	RobotDrive.toggleGear();
-        }
-        
-    	lastToggleGear = controller1.getRawButton(1);
-    	
-        if(controller2.getRawButton(1))
-        {
-        	//System.out.println("Gyro Drive");
-        	if(!headingSet)
-        	{
-        		headingSet = true;
-        		heading = gyro.getAngle();
-        	}
-        	RobotDrive.DriveWithHeadingHold(controller1.getY(), -controller2.getY(), heading);
-        }
-        else
-        {
-        	headingSet = false;
-        	RobotDrive.drive(controller1.getY(), -controller2.getY());
-        }
-        if(controller2.getRawButton(7))
-        {
-        	gyro.calibrate();
-        }
-    	//RobotDrive.drive(controller1.getY(), -1*controller2.getY());
-    }
+    }     
 */    
 }

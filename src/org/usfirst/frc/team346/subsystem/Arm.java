@@ -27,15 +27,11 @@ public class Arm {
 	 *
 	 */
 	public enum ArmPosition {
-		LOAD(176),
-		TRAVEL(254),
-		SHOOT(392),
-		GATE_DOWN(190),
-		GATE_UP(380),
-		RESET(290),
-		LIFT(460),
-		START(339),
-		CLIMB(680);
+		LOAD(262),		// Original 176
+		TRAVEL(358),	// Original 254
+		SHOOT(485),		// Original 392				
+		START(397),		// Original 339
+		CLIMB(530);		// Original 680
 		
 		private int m_position;
 		
@@ -83,4 +79,13 @@ public class Arm {
 			this.m_armMotor.set(_position);
 		}	
 	}	
+	
+	/**
+	 * Gets the current position of the arm.
+	 * 
+	 * @return the current position of the arm
+	 */
+	public double getArmPosition() {
+		return this.m_armMotor.getPosition(); 
+	}
 }

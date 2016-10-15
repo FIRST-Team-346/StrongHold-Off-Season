@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Shooter  { 
-/*    
-	*//**
+public class Shooter implements Subsystem { 
+    
+	/**
 	 * Enumeration for shooter speeds.
 	 * 
 	 * @author Adam Morrissett
-	 *//*
+	 */
 	public static enum ShooterSpeed {
 		LOAD,
 		SHOOT,
@@ -21,16 +21,16 @@ public class Shooter  {
 		TRIGGER,
 		PORTCULLIS;
 	}
-	
-	*//**
-	 * Enumeration for shooter speeds. This
-	 * is a private internal enumeration for the
+		
+	/**
+	 * Internal enumeration for shooter speeds. 
+	 * This is a private internal enumeration for the
 	 * actual motor speeds. This is used in
 	 * conjunction with the ShooterSpeed enumeration
 	 * to abstract some details away. 
 	 * 
 	 * @author Scott C.
-	 *//*
+	 */
 	private enum internalShooterSpeed {
 		LOAD_TOP(3600),
 		LOAD_BOTTOM(1000),
@@ -46,36 +46,57 @@ public class Shooter  {
 		
 		private int m_speed;	// Speed of the rollers
 		
-		*//**
+		/**
 		 * Gets the speed of the enumeration.
 		 * 
 		 * @return (int) speed of the enumeration
-		 *//*
+		 */
 		public int getSpeed() {
 			return this.m_speed;
 		}
 		
-		*//**
+		/**
 		 * Custom constructor for ShooterSpeed object.
 		 * 
 		 * @param _speed speed of the roller
-		 *//*
+		 */
 		private internalShooterSpeed(int _speed) {
 			this.m_speed = _speed;
 		}
 	}		
+	
+	/**
+	 * Enumeration for jaw position.
+	 * 
+	 * @author Adam Morrissett
+	 */
+	public static enum JawPosition {
+		OPEN,
+		CLOSE;
+	}
+	
+	/**
+	 * Enumeration for trigger position.
+	 * 
+	 * @author Adam Morrissett
+	 *
+	 */
+	public static enum TriggerPosition {
+		EXTEND,
+		RETRACT;
+	}
 	
 	// Motor controller declarations
 	private CANTalon m_topRoller;
 	private CANTalon m_bottomRoller;
 	
 	// Solenoid declarations
-	private Solenoid m_clawGripper;
-	private Solenoid m_shooterTrigger;
+	private Solenoid m_jaw;
+	private Solenoid m_trigger;
 	
-	*//**
+	/**
 	 * Default constructor for Shooter object.
-	 *//*
+	 */
     public Shooter() {
     	this.m_topRoller = new CANTalon(RobotMap.SHOOTER_TOP_ROLLER_PORT);								// Init top roller
     	this.m_topRoller.changeControlMode(TalonControlMode.Speed);										// Sets the top roller to speed mode
@@ -93,41 +114,104 @@ public class Shooter  {
     			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_I, 
     			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_D);
     	
-    	this.m_clawGripper = new Solenoid(RobotMap.SHOOTER_CLAW_GRIPPER_PORT);							// Init claw solenoid
-    	this.m_shooterTrigger = new Solenoid(RobotMap.SHOOTER_TRIGGER_PORT);							// Init trigger to start shot        	           
+    	this.m_jaw = new Solenoid(RobotMap.SHOOTER_CLAW_GRIPPER_MODULE,
+    			RobotMap.SHOOTER_CLAW_GRIPPER_PORT);													// Init claw solenoid
+    	this.m_trigger = new Solenoid(RobotMap.SHOOTER_TRIGGER_MODULE,
+    			RobotMap.SHOOTER_TRIGGER_PORT);															// Init trigger to start shot        	           
     }
 	
-    *//**
+    /**
 	 * This method is the main method behind all of the
 	 * shooter-based functions. It should be called during
 	 * autonomous and/or teleoperation periodic methods.
-	 *//*
+	 */
 	@Override
 	public void runPeriodic() {
 	
 	}
 
-	*//**
+	/**
 	 * This method disables the subsystem. This method 
 	 * could be used for any sort of safety driven disable.
-	 *//*
+	 */
 	@Override
 	public void disable() {
 		this.m_topRoller.disable();
 		this.m_bottomRoller.disable();		
 	}
 
-	*//**
-	 * This method enables the subsystem. This allows
-	 * the subsystem to actually be driven.
-	 *//*
+	/**
+	 * This method enables the subsystem. 
+	 * This allows the subsystem to actually 
+	 * be driven.
+	 */
 	@Override
 	public void enable() {
 		this.m_bottomRoller.enable();
 		this.m_topRoller.enable();		
 	}
     
-	*//**
+	/**
+	 * Sets the shooter jaw open or closed.
+	 * 
+	 * @param _jawPosition target position of the jaw
+	 */
+	public void setJawPosition(JawPosition _jawPosition) {
+		switch(_jawPosition) {
+			case OPEN : {
+				this.m_jaw.set(false);
+			}; break;
+			
+			case CLOSE : {
+				this.m_jaw.set(true);
+			}; break;
+		}
+	}
+	
+	/**
+	 * Get the position of the jaw.
+	 * 
+	 * @return the position of the jaw
+	 */
+	public JawPosition getJawPosition() {
+		if (this.m_jaw.get()) {
+			return JawPosition.CLOSE;
+		} else {
+			return JawPosition.OPEN;
+		}
+	}
+	
+	/**
+	 * sets the trigger position.
+	 * 
+	 * @param _triggerPosition position to set the trigger
+	 */
+	public void setTriggerPosition(TriggerPosition _triggerPosition) { 
+		switch(_triggerPosition) {
+			case EXTEND : {
+				this.m_trigger.set(true);
+			}; break;
+			
+			case RETRACT : {
+				this.m_trigger.set(false);
+			}; break;
+		}
+	}
+	
+	/**
+	 * Gets the position of the trigger.
+	 * 
+	 * @return position of the trigger
+	 */
+	public TriggerPosition getTriggerPosition() {
+		if (this.m_trigger.get()) {
+			return TriggerPosition.EXTEND;
+		} else {
+			return TriggerPosition.RETRACT;
+		}
+	}
+	
+	/**
 	 * Sets the shooter speed to one of the preset 
 	 * speeds in the enumeration.
 	 * 
@@ -252,5 +336,6 @@ public class Shooter  {
 	public boolean CanFire()
 	{
 		return m_topRoller.getSpeed() > minSpeedToFire;
-	}*/
+	}
+*/
 }
