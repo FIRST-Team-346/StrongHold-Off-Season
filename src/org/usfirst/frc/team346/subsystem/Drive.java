@@ -86,6 +86,7 @@ public class Drive implements Subsystem {
 	 * drive-based functions. It should be called during
 	 * autonomous and/or teleoperation periodic methods.
 	 */
+	@Override
 	public void runPeriodic() {
 		
 	}
@@ -107,6 +108,7 @@ public class Drive implements Subsystem {
 	 * This method disables the subsystem. This method 
 	 * could be used for any sort of safety driven disable.
 	 */
+	@Override
 	public void disable() {
 		this.m_leftDriveMaster.disable();		// Disable motor controller output
 		this.m_leftDriveSlave.disable(); 		// Disable motor controller output
@@ -121,6 +123,7 @@ public class Drive implements Subsystem {
 	 * This method enables the subsystem. This allows
 	 * the subsystem to actually be driven.
 	 */
+	@Override
 	public void enable() {
 		this.m_leftDriveMaster.enable();	// Enable motor controller output
 		this.m_leftDriveSlave.enable(); 	// Enable motor controller output
@@ -158,7 +161,7 @@ public class Drive implements Subsystem {
     			Gpid.out = 0;
 		}
 
-		LeftMaster.set(left);
-	    RightMaster.set(right);
+		//LeftMaster.set(left);
+	    //RightMaster.set(right);
 	}						
 }

@@ -2,32 +2,13 @@
 package org.usfirst.frc.team346.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-
-import org.usfirst.frc.team346.autonomous.SimpleStrongholdAutonomous;
-import org.usfirst.frc.team346.autonomous.StrongholdAutonomous;
-import org.usfirst.frc.team346.camera.PiCamera;
-import org.usfirst.frc.team346.subsystem.Arm;
+//import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Drive;
-import org.usfirst.frc.team346.subsystem.Shooter;
+//import org.usfirst.frc.team346.subsystem.Shooter;
+//import org.usfirst.frc.team346.subsystem.Shooter.ShooterSpeed;
 import org.usfirst.frc.team346.subsystem.Winch;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
-
-import edu.wpi.first.wpilibj.CameraServer;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
 
 
 /**
@@ -45,8 +26,8 @@ public class Robot extends IterativeRobot {
 
 	// Subsystem declarations
 	private Drive m_driveSubsystem;		// Drive subsystem
-	private Arm m_armSubsystem;			// Arm subsystem
-	private Shooter m_shooterSubsystem;	// Shooter subsystem
+//	private Arm m_armSubsystem;			// Arm subsystem
+//	private Shooter m_shooterSubsystem;	// Shooter subsystem
 	private Winch m_winchSubsystem; 	// Winch subsystem
 	
 	// Other declarations
@@ -66,45 +47,9 @@ public class Robot extends IterativeRobot {
     	
     	// Subsystem instantiations
     	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
-    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
-    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
-    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
-    	
-    	// Old stuff below
-		motors = new StrongholdMotorPreferences(); // Init all motors
-		solenoids = new StrongholdSolenoidPreferences(); // Init all solenoids
-		robotArm = new Arm(motors.armMotor);
-		robotShooter = new Shooter(motors.shooterTop, motors.shooterBottom, solenoids.Gripper, solenoids.Trigger);
-	    robotWinch = new Winch(solenoids.WinchGear, motors.winch, solenoids.HookSupply, solenoids.Hook);	
-		lightManager = new LightManager(new Light(solenoids.green, "green"), new Light(solenoids.red,"red"), new Light(solenoids.blue,"blue"));
-    	lightManager.start();
-        
-    	
-        controller1 = new Joystick(1);
-        controller2 = new Joystick(2); 
-        buttonBoard = new ButtonBoard(3);
-//        armcontroller = new Joystick(4);
-        Prefs = Preferences.getInstance();
-        gyro = new AnalogGyro(0);
-        hookDuration = 0;
-        
-        underPressure = new AnalogInput(1);
-        gyro.calibrate();
-        //rangeSensor = new Ultrasonic(new DigitalOutput(4), new DigitalInput(3));
-        //rangeSensor.setAutomaticMode(true);
-        previousLeft =0;
-        previousRight = 0;
-        Gpid = new dummyPIDOutput();
-        gyroPIDController = new PIDController(Prefs.getDouble("GyroP", 0), Prefs.getDouble("GyroI", 0), Prefs.getDouble("GyroD", 0),gyro,Gpid);
-        
-        RobotDrive = new Drive(motors.leftDriveMaster, motors.rightDriveMaster, solenoids.SpeedGear, gyroPIDController);
-
-//        auto = new SimpleStrongholdAutonomous(RobotDrive);
-
-       
-        
-        armControl = false;
-        light = new Relay(1);               
+//    	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
+//    	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
+//    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem                 
     }
 
 	/**
@@ -140,6 +85,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
+/*    	
 		// This makes sure that the autonomous stops running when
     	// tile open starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
@@ -156,6 +102,7 @@ public class Robot extends IterativeRobot {
         motors.setPID();
         motors.winch.enable();
         robotWinch.resetHook();
+*/        
         System.out.println("Starting teleop periodic");
     }
 
@@ -163,6 +110,16 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	this.m_driveSubsystem.setDrive(this.m_leftJoystick.getY(), this.m_rightJoystick.getY());
+    	
+/*    	
+    	if (this.m_buttonBoard.getRawButton(1)) {
+    		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.LOAD_TOP);
+    	}    	
+    	
+    	
+    	
+    	// Old stuff
     	myDrive.runPeriodic();
     	myArm.runPreriodic();
     	
@@ -173,9 +130,13 @@ public class Robot extends IterativeRobot {
         processWinchInput();
         processShootingInput();
         solenoids.compressor.start();
+*/        
     }
+
     
+/*    
     public void processArmInput(){    	
+    	
          if(buttonBoard.getArmReset()) {
         	lightManager.Flash("Green",1500);
         	 robotArm.Reset();
@@ -201,9 +162,9 @@ public class Robot extends IterativeRobot {
     		robotArm.setArmPosition(newPoint);
     		}
 //*/    		
-        } 
+//        } 
     
-    
+    /*
     public void processShootingInput(){
 		if(buttonBoard.getLightOn()){
 			//System.out.println("Light is On");
@@ -307,7 +268,8 @@ public class Robot extends IterativeRobot {
     }
     
     public void processDriveLogic(){
-    
+*/
+  /*  
     	if(controller1.getRawButton(1) && !lastToggleGear)
         {
         	RobotDrive.toggleGear();
@@ -336,4 +298,5 @@ public class Robot extends IterativeRobot {
         }
     	//RobotDrive.drive(controller1.getY(), -1*controller2.getY());
     }
+*/    
 }

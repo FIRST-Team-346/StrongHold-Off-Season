@@ -1,91 +1,176 @@
-package org.usfirst.frc.team346.subsystem;
+/*package org.usfirst.frc.team346.subsystem;
+
+import org.usfirst.frc.team346.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Shooter {
-
-    double m_loadSetpointTop;
-    double m_loadSetpointBottom;
-    double m_loadSetpointshooterTrigger;
-    double m_shootSetpointTop;
-    double m_shootSetpointBottom;
-    double m_shootSetpointMaxErrorPercent;
-    double m_portcullis;
-    double m_shootCloseTop;
-    double m_shootCloseBottom;
+public class Shooter implements Subsystem { 
     
-	double minSpeedToFire = 4000;
+	*//**
+	 * Enumeration for shooter speeds.
+	 * 
+	 * @author Adam Morrissett
+	 *//*
+	public static enum ShooterSpeed {
+		LOAD,
+		SHOOT,
+		CLOSE,
+		TRIGGER,
+		PORTCULLIS;
+	}
+	
+	*//**
+	 * Enumeration for shooter speeds. This
+	 * is a private internal enumeration for the
+	 * actual motor speeds. This is used in
+	 * conjunction with the ShooterSpeed enumeration
+	 * to abstract some details away. 
+	 * 
+	 * @author Scott C.
+	 *//*
+	private enum internalShooterSpeed {
+		LOAD_TOP(3600),
+		LOAD_BOTTOM(1000),
+		
+		SHOOT_TOP(-8000),
+		SHOOT_BOTTOM(-100),
+		
+		CLOSE_TOP(-4200),
+		CLOSE_BOTTOM(-50),
+		
+		LOAD_TRIGGER(-1000),						
+		PORTCULLIS(1800);
+		
+		private int m_speed;	// Speed of the rollers
+		
+		*//**
+		 * Gets the speed of the enumeration.
+		 * 
+		 * @return (int) speed of the enumeration
+		 *//*
+		public int getSpeed() {
+			return this.m_speed;
+		}
+		
+		*//**
+		 * Custom constructor for ShooterSpeed object.
+		 * 
+		 * @param _speed speed of the roller
+		 *//*
+		private internalShooterSpeed(int _speed) {
+			this.m_speed = _speed;
+		}
+	}		
 	
 	// Motor controller declarations
 	private CANTalon m_topRoller;
 	private CANTalon m_bottomRoller;
 	
 	// Solenoid declarations
-	private Solenoid m_clawGrip;
+	private Solenoid m_clawGripper;
 	private Solenoid m_shooterTrigger;
 	
+	*//**
+	 * Default constructor for Shooter object.
+	 *//*
     public Shooter() {
+    	this.m_topRoller = new CANTalon(RobotMap.SHOOTER_TOP_ROLLER_PORT);								// Init top roller
+    	this.m_topRoller.changeControlMode(TalonControlMode.Speed);										// Sets the top roller to speed mode
+    	this.m_topRoller.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);						// Sets feedback device to Quad Encoder
+    	this.m_topRoller.configEncoderCodesPerRev(RobotMap.SHOOTER_TOP_ROLLER_CODES_PER_REV);			// Sets codes per revolution to 1024
+    	this.m_topRoller.setPID(RobotMap.SHOOTER_TOP_ROLLER_PID_P, 										// Sets the PID parameters
+    			RobotMap.SHOOTER_TOP_ROLLER_PID_I, 
+    			RobotMap.SHOOTER_TOP_ROLLER_PID_D);    	
     	
+    	this.m_bottomRoller = new CANTalon(RobotMap.SHOOTER_BOTTOM_ROLLER_PORT);						// Init bottom roller					
+    	this.m_bottomRoller.changeControlMode(TalonControlMode.Speed);									// Sets the bottom roller to speed mode
+    	this.m_bottomRoller.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);						// Sets feedback device to Quad Encoder
+    	this.m_bottomRoller.configEncoderCodesPerRev(RobotMap.SHOOTER_BOTTOM_ROLLER_CODES_PER_REV);		// Sets codes per revolution to 360						
+    	this.m_bottomRoller.setPID(RobotMap.SHOOTER_BOTTOM_ROLLER_PID_P, 								// Sets the PID parameters
+    			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_I, 
+    			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_D);
     	
-    	// Old stuff
-    	m_loadSetpointTop = 3600; //need to set these values later
-    	m_loadSetpointBottom = 1000;
-    	m_loadSetpointshooterTrigger = -1000;
-    	m_shootSetpointTop = -8000;
-    	m_shootSetpointBottom = -100;
-    	m_shootCloseTop = -4200;
-    	m_shootCloseBottom = - 50;
-    	m_shootSetpointMaxErrorPercent = .01;
-    	m_portcullis = 1800;
-        
-        this.m_shooterTop = new CANTalon(7);
-		this.m_shooterBottom = new CANTalon(8);
-
-		this.m_shooterTop.changeControlMode(TalonControlMode.Speed);
-		this.m_shooterTop.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		this.m_shooterTop.configEncoderCodesPerRev(1024);
-		this.m_shooterTop.setPID(10, 0, 0);
-
-		
-		this.m_shooterTop.changeControlMode(TalonControlMode.PercentVbus);
-		
-		this.m_shooterTop.changeControlMode(TalonControlMode.PercentVbus);
-		
-		this.m_shooterBottom.changeControlMode(TalonControlMode.Follower);
-		this.m_shooterBottom.set(this.m_shooterTop.getDeviceID());
-		this.m_shooterBottom.changeControlMode(TalonControlMode.PercentVbus);
-
-		this.m_shooterBottom.changeControlMode(TalonControlMode.Speed);
-		this.m_shooterBottom.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		this.m_shooterBottom.configEncoderCodesPerRev(360);
-		this.m_shooterBottom.setPID(0, 0, 0);
+    	this.m_clawGripper = new Solenoid(RobotMap.SHOOTER_CLAW_GRIPPER_PORT);							// Init claw solenoid
+    	this.m_shooterTrigger = new Solenoid(RobotMap.SHOOTER_TRIGGER_PORT);							// Init trigger to start shot        	           
     }
 	
-    public void setMotors(double topSpeed, double bottomSpeed, double shooterTriggerSpeed)
-    {
-//    	if(!ShooterTop.isControlEnabled()){
-//    		ShooterTop.enableControl();
-//    	}
-    	m_shooterTop.set(topSpeed);	
-    	m_shooterTop.enable();
-        SmartDashboard.putNumber("ShootSetpointTop", topSpeed);
-//    	ShooterBottom.set(-1*ShooterTop.getOutputVoltage());
-    	
-   		//shooterTrigger.set(shooterTriggerSpeed);		
-    }
+    *//**
+	 * This method is the main method behind all of the
+	 * shooter-based functions. It should be called during
+	 * autonomous and/or teleoperation periodic methods.
+	 *//*
+	@Override
+	public void runPeriodic() {
+	
+	}
+
+	*//**
+	 * This method disables the subsystem. This method 
+	 * could be used for any sort of safety driven disable.
+	 *//*
+	@Override
+	public void disable() {
+		this.m_topRoller.disable();
+		this.m_bottomRoller.disable();		
+	}
+
+	*//**
+	 * This method enables the subsystem. This allows
+	 * the subsystem to actually be driven.
+	 *//*
+	@Override
+	public void enable() {
+		this.m_bottomRoller.enable();
+		this.m_topRoller.enable();		
+	}
     
-    public void LoadBall(){
-//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-		setMotors(m_loadSetpointTop, m_loadSetpointBottom, m_loadSetpointshooterTrigger); // Not implementing speed control
-		if(m_shooterGripper.get())
-		{
-			m_shooterTrigger.set(false);
-			m_shooterGripper.set(false);
-		}
-    }
+	*//**
+	 * Sets the shooter speed to one of the preset 
+	 * speeds in the enumeration.
+	 * 
+	 * @param _speed the speed of the shooter
+	 *//*
+	public void setShooterSpeed(ShooterSpeed _speed) {		
+		switch(_speed) {
+			case LOAD : {
+				this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());
+				
+				this.m_shooterTrigger.set(false);
+				this.m_clawGripper.set(false);
+			}; break;
+				
+			case SHOOT : {
+				this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());
+			}; break;
+			
+			case CLOSE : {
+				this.m_topRoller.set(internalShooterSpeed.CLOSE_TOP.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.CLOSE_BOTTOM.getSpeed());
+			}; break;
+			
+			case PORTCULLIS : {
+				this.m_topRoller.set(internalShooterSpeed.PORTCULLIS.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.PORTCULLIS.getSpeed());
+			}; break;	
+			case TRIGGER : {
+				this.m_topRoller.set(internalShooterSpeed.LOAD_TRIGGER.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.LOAD_TRIGGER.getSpeed());
+			}; break;
+			
+			default : {
+				this.m_topRoller.set(0);
+				this.m_bottomRoller.set(0);
+				
+				this.m_shooterTrigger.set(false);
+				this.m_clawGripper.set(false);
+			}; break;
+		}		
+	}    
     
     public void Stop(){
 //    	ShooterTop.disableControl();
@@ -97,45 +182,45 @@ public class Shooter {
     
     public void closeJaws(){
     
-    	m_shooterGripper.set(true);
+    	m_clawGripper.set(true);
     	
     }
     public void openJaws(){
-    	m_shooterGripper.set(false);
+    	m_clawGripper.set(false);
     }
-  /*  public void GripBall (){
+    public void GripBall (){
     		shooterGripper.set(true);
     		shooterTrigger.set(false);
-    }*/
+    }
     
     public void SpinUp(){
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	setMotors(m_shootSetpointTop,m_shootSetpointBottom,0); // Not implementing speed control
-    	m_shooterGripper.set(false);
+    	setMotors(internalShooterSpeed.SHOOT_TOP, internalShooterSpeed.SHOOT_BOTTOM,0); // Not implementing speed control
+    	m_clawGripper.set(false);
     }
     public void ShootClose(){
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	setMotors(m_shootCloseTop,m_shootCloseBottom,0); // Not implementing speed control
-    	m_shooterGripper.set(false);
+    	setMotors(internalShooterSpeed.CLOSE_TOP,internalShooterSpeed.CLOSE_TOP,0); // Not implementing speed control
+    	m_clawGripper.set(false);
     }
   //  public boolean IsAbleToFire(){
-    	/*if((ShooterTop.getSpeed()>=ShootSetpointTop - (ShootSetpointTop * ShootSetpointMaxErrorPercent)) &&
+    	if((ShooterTop.getSpeed()>=ShootSetpointTop - (ShootSetpointTop * ShootSetpointMaxErrorPercent)) &&
     			(ShooterBottom.getSpeed()>=ShootSetpointBottom - (ShootSetpointBottom * ShootSetpointMaxErrorPercent)))
     		return true;
     	return false; //figure this out later
-    *///}
+    //}
     
     public void Fire()
     {
-    		if(m_shooterGripper.get())
+    		if(m_clawGripper.get())
     		{
-    			m_shooterGripper.set(false);
+    			m_clawGripper.set(false);
     			m_shooterTrigger.set(true);
     		}
     		
 //    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     		
-        	setMotors(m_shootSetpointTop,m_shootSetpointBottom,100); // Not implementing speed control
+        	setMotors(internalShooterSpeed.SHOOT_TOP, internalShooterSpeed.SHOOT_BOTTOM, 100); // Not implementing speed control
     }
     public void ejectBall()
     {
@@ -166,6 +251,6 @@ public class Shooter {
 
 	public boolean CanFire()
 	{
-		return m_shooterTop.getSpeed() > minSpeedToFire;
+		return m_topRoller.getSpeed() > minSpeedToFire;
 	}
-}
+}*/
