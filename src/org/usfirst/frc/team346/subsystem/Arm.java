@@ -59,7 +59,7 @@ public class Arm {
 	}
 	
 	public boolean IsAbleToFire() {
-		if(m_armMotor.get() == PositionShoot) // need to create dead zone?
+		if(ArmMotor.get() == PositionShoot) // need to create dead zone?
 			return true;
 		return false;
 	}
@@ -70,7 +70,7 @@ public class Arm {
 	
 	public boolean IsAbleToLift() {	
 		//need to create dead zone?
-		if(m_armMotor.get() == PositionGateDown) {
+		if(ArmMotor.get() == PositionGateDown) {
 			return true;
 		}
 		
@@ -78,9 +78,9 @@ public class Arm {
 	}
 	
 	public void Stop() {
-    	m_armMotor.set(0);
-    	if (m_armMotor.isEnabled()) {
-    		m_armMotor.disable();
+    	ArmMotor.set(0);
+    	if (ArmMotor.isEnabled()) {
+    		ArmMotor.disable();
     	}
 	}
 	
@@ -94,13 +94,13 @@ public class Arm {
 	//}
 	
 	public void hang() {
-		if(m_armMotor.getControlMode() != TalonControlMode.PercentVbus) {	
-			m_armMotor.changeControlMode(TalonControlMode.PercentVbus);
-			m_armMotor.setVoltageRampRate(24);
+		if(ArmMotor.getControlMode() != TalonControlMode.PercentVbus) {	
+			ArmMotor.changeControlMode(TalonControlMode.PercentVbus);
+			ArmMotor.setVoltageRampRate(24);
 		}
 			
 		//if(ArmMotor.getPosition() > PositionShoot /*Position45*/){
-			//m_armMotor.set(-1);
+			ArmMotor.set(-1);
 //		}else{
 //			ArmMotor.set(0);
 //			//We need to disable vramp for the motor to stop properly
