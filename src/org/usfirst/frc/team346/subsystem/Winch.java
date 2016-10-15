@@ -15,10 +15,10 @@ public class Winch {
 	CANTalon m_winch; 
 	double m_PositionHang;
 	
-	Hook  = new DoubleSolenoid(1,4,5);
-    HookSupply = new Solenoid(1,2);
+	DoubleSolenoid Hook  = new DoubleSolenoid(1,4,5);
+    Solenoid HookSupply = new Solenoid(1,2);
 
-    winchLatch = new Solenoid(2,4);
+    Solenoid winchLatch = new Solenoid(2,4);
 	
 
 	
