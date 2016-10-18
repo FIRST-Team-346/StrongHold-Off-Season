@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	// Human interface devices (HIDs) declarations
+	// Human interface device (HID) declarations
 	private Joystick m_leftJoystick;	// Left joystick on the driver station
 	private Joystick m_rightJoystick;	// Right joystick on the driver station
 	private Joystick m_buttonBoard;		// Button board on the drive station
@@ -39,10 +39,10 @@ public class Robot extends IterativeRobot {
 	private Compressor m_compressor;	// Pneumatic compressor
 	
 	/**
-	 * This is the main initialization method. This method is 
-	 * called when the robot first starts up. Do not put any 
-	 * time-dependent variables in here because the robot will 
-	 * sit indefinitely after calling this method.
+	 * This is the main initialization method. 
+	 * This method is called when the robot first starts up. 
+	 * Do not put any time-dependent variables in here because 
+	 * the robot will sit indefinitely after calling this method.
 	 */
     public void robotInit() {
     	
@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
     }
 
     /**
-     * This function is called periodically during operator control
+     * This function is called periodically during operator control.
      */
     public void teleopPeriodic() {
     	this.m_compressor.start();

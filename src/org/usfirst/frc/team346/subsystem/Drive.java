@@ -1,6 +1,5 @@
 package org.usfirst.frc.team346.subsystem;
 
-import org.usfirst.frc.team346.robot.dummyPIDOutput;
 import org.usfirst.frc.team346.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -35,14 +34,7 @@ public class Drive implements Subsystem {
 	private CANTalon m_rightDriveSlave;
 	
 	// Solenoid declarations
-	private DoubleSolenoid m_gearSolenoid;
-	
-	AnalogGyro HeadingGyro;
-	dummyPIDOutput Gpid;
-	PIDController gyroPIDController;
-	Preferences Prefs;
-	boolean lowGear;
-	boolean highGear;
+	private DoubleSolenoid m_gearSolenoid;	
 	
 	/**
 	 * Enumeration for transmission speeds.
@@ -51,8 +43,8 @@ public class Drive implements Subsystem {
 	 *
 	 */
 	public static enum GearSpeed {
-		HIGH_SPEED,
-		LOW_SPEED;
+		HIGH_SPEED,	///< Transmission is set to high speed
+		LOW_SPEED;	///< Transmission is set to low speed
 	}
 	
 	/**
