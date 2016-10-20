@@ -10,11 +10,11 @@ import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
 import org.usfirst.frc.team346.subsystem.Shooter;
 import org.usfirst.frc.team346.subsystem.Shooter.JawPosition;
+import org.usfirst.frc.team346.subsystem.Shooter.ShooterSpeed;
 import org.usfirst.frc.team346.subsystem.Shooter.TriggerPosition;
-import org.usfirst.frc.team346.subsystem.Winch;
+import org.usfirst.frc.team346.subsystem.Climber;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	private Drive m_driveSubsystem;		// Drive subsystem
 	private Arm m_armSubsystem;			// Arm subsystem
 	private Shooter m_shooterSubsystem;	// Shooter subsystem
-	private Winch m_winchSubsystem; 	// Winch subsystem
+	private Climber m_climberSubsystem; 	// Winch subsystem
 	
 	// Compressor declaration
 	private Compressor m_compressor;	// Pneumatic compressor
@@ -65,10 +65,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control.
      */
     public void teleopPeriodic() {
+    	// Compressor event
     	this.m_compressor.start();
+    	    	        	
+    	// Drive events
     	this.m_driveSubsystem.setDrive(this.m_leftJoystick.getY(), this.m_rightJoystick.getY());
-    	
-    	// Drive speed events
     	if (this.m_leftJoystick.getRawButton(1)) {
     		this.m_driveSubsystem.setGear(GearSpeed.HIGH_SPEED);    		
     	} else {
@@ -77,69 +78,52 @@ public class Robot extends IterativeRobot {
     	
     	// Arm position events
     	if (this.m_buttonBoard.getRawButton(8)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD.getPosition());
+    		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
     		
     	} else if (this.m_buttonBoard.getRawButton(9)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.CLIMB.getPosition());
+    		this.m_armSubsystem.setArmPosition(ArmPosition.CLIMB);
     		
     	} else if (this.m_buttonBoard.getRawButton(10)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT.getPosition());
+    		this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT);
     		
     	} else if (this.m_buttonBoard.getRawButton(11)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.START.getPosition());
+    		this.m_armSubsystem.setArmPosition(ArmPosition.START);
     		
     	} else if (this.m_buttonBoard.getRawButton(12)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL.getPosition());
+    		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
     	}    	    	    	   
     	
-    	// Jaw open/close events
+    	// Jaw open/close and shooting events
     	if (this.m_buttonBoard.getRawButton(3)) {
     		this.m_shooterSubsystem.setJawPosition(JawPosition.OPEN);
+    	} 
+    	
+    	if (this.m_buttonBoard.getRawButton(6)) {
+    		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.SHOOT);
     	} else {
+    		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.OFF);
+    	} 
+    	
+    	if (!this.m_buttonBoard.getRawButton(3) && 
+    			!this.m_buttonBoard.getRawButton(6)) {
     		this.m_shooterSubsystem.setJawPosition(JawPosition.CLOSE);
     	}
     	
     	// Shooting events
-    	if (this.m_buttonBoard.getRawButton(2) && this.m_shooterSubsystem.getJawPosition() == JawPosition.OPEN) {
+    	if (this.m_buttonBoard.getRawButton(2) 
+    			&& this.m_shooterSubsystem.getJawPosition() == JawPosition.OPEN) {
     		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.EXTEND);
     	} else {
     		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.RETRACT);
-    	}        
+    	}      	    
+    	
+    	// Hook/winch events
+    	if (this.m_buttonBoard.getRawButton(-1)) {
+    		
+    	}
     }
 
-
-    
-/*    
-    public void processArmInput(){    	
-    	
-         if(buttonBoard.getArmReset()) {
-        	lightManager.Flash("Green",1500);
-        	 robotArm.Reset();
-    		System.out.println("ArmGateDown");
-        } else if(buttonBoard.getClimb()) {
-    		robotArm.Lift();
-        } else if(buttonBoard.getTravelPosition()){
-        	robotArm.Travel();
-        }else if(buttonBoard.getStopArm())
-        	{
-        	robotArm.Stop();
-        } else if(buttonBoard.getArmHang()){
-        	robotArm.hang();
-    	}
-/*         
-        else if(armcontroller.getRawButton(1)) {
-    		System.out.println("ArmControl");
-    		double newPoint = motors.armMotor.getSetpoint()+(armcontroller.getY()*5);
-    		if(newPoint>robotArm.PositionLift)
-    			newPoint=robotArm.PositionLift;
-    		if(newPoint<robotArm.PositionLoad)
-    			newPoint=robotArm.PositionLoad;
-    		robotArm.setArmPosition(newPoint);
-    		}
-//*/    		
-//        } 
-    
-    /*
+/*
     public void processShootingInput(){
 		if(buttonBoard.getLightOn()){
 			//System.out.println("Light is On");

@@ -19,7 +19,7 @@ public interface Subsystem {
 	 * methods. It is the main entry point for all
 	 * subsystem logic.
 	 */
-	public void runPeriodic();
+	public void runPeriodic(Object... objects);
 	
 	/**
 	 * This method should disable the subsystem, meaning

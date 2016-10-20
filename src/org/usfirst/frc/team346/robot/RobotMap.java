@@ -1,7 +1,5 @@
 package org.usfirst.frc.team346.robot;
 
-import edu.wpi.first.wpilibj.CANTalon;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -27,7 +25,7 @@ public class RobotMap {
 	public static final int SHOOTER_TOP_ROLLER_PORT = 7;
 	public static final int SHOOTER_BOTTOM_ROLLER_PORT = 8;	
 	
-	public static final int WINCH_PORT = 6;
+	public static final int WINCH_MOTOR_PORT = 6;
 	
 	/**
 	 * TODO: Figure out what "Hook" and "HookSupply" mean
@@ -51,8 +49,8 @@ public class RobotMap {
 	public static final int SHOOTER_TRIGGER_MODULE = 2;
 	public static final int SHOOTER_TRIGGER_PORT = 7;	
 	
-	public static final int WINCH_LATCH_MODULE = 2;
-	public static final int WINCH_LATCH_PORT = 4;	
+	public static final int WINCH_ENGAGEMENT_LOCK_MODULE = 2;
+	public static final int WINCH_ENGAGEMENT_LOCK_PORT = 4;	
 	
 	// Compressor port:
 	public static final int COMPRESSOR_PORT = 2;
@@ -66,7 +64,7 @@ public class RobotMap {
 	public static final int SHOOTER_TOP_ROLLER_PID_I = 0;
 	public static final int SHOOTER_TOP_ROLLER_PID_D = 0;
 	
-	public static final int SHOOTER_BOTTOM_ROLLER_PID_P = 0;
+	public static final int SHOOTER_BOTTOM_ROLLER_PID_P = 10;
 	public static final int SHOOTER_BOTTOM_ROLLER_PID_I = 0;
 	public static final int SHOOTER_BOTTOM_ROLLER_PID_D = 0;
 }

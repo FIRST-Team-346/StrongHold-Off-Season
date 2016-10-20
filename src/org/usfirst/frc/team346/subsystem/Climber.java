@@ -1,13 +1,23 @@
 package org.usfirst.frc.team346.subsystem;
 
+import org.usfirst.frc.team346.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 
-//TODO: make sure these positions are right
-public class Winch {
+public class Climber {
 
+	/*
+	 * The engagement lock might need to be
+	 * changed to a double solenoid.
+	 */
+	private Solenoid m_engagementLock;
+	private CANTalon m_winchMotor;
+	private DoubleSolenoid m_hook;
+	
+	// Old stuff
 	DoubleSolenoid m_WinchGear;
 
 	Solenoid m_HookSupply;
@@ -21,19 +31,15 @@ public class Winch {
     Solenoid winchLatch = new Solenoid(2,4);
 	
 
-	
-	public Winch (DoubleSolenoid winchGear, CANTalon winchMotor, Solenoid hookSupply, DoubleSolenoid hook){
-		m_WinchGear = winchGear;
-		m_HookSupply = hookSupply;
-		m_winch = winchMotor;
-		m_PositionHang = -0.2;
-		m_Hook = hook;
-		m_HookSupply.set(false);
+    /**
+     * Default constructor for winch object.
+     */
+	public Climber (){
+		this.m_engagementLock = new Solenoid(
+				RobotMap.WINCH_ENGAGEMENT_LOCK_MODULE,
+				RobotMap.WINCH_ENGAGEMENT_LOCK_PORT);
+		this.m_winchMotor = new CANTalon(RobotMap.WINCH_MOTOR_PORT);	
 		
-		this.m_winch.changeControlMode(TalonControlMode.PercentVbus);			// Set winch to %Vbus mode				
-		this.m_winch.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);	// Set encoder type
-		this.m_winch.configEncoderCodesPerRev(360);								// Set encoder codes per revolution
-		this.m_winch.disable();													// Disable  motor output	
 	}
 	
 	public void resetHook()
@@ -79,5 +85,4 @@ public class Winch {
 	{
 		m_winch.disable();
 	}
-	
 }

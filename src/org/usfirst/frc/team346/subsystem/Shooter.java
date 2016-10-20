@@ -19,7 +19,8 @@ public class Shooter implements Subsystem {
 		SHOOT,
 		CLOSE,
 		TRIGGER,
-		PORTCULLIS;
+		PORTCULLIS,
+		OFF;
 	}
 		
 	/**
@@ -126,7 +127,7 @@ public class Shooter implements Subsystem {
 	 * autonomous and/or teleoperation periodic methods.
 	 */
 	@Override
-	public void runPeriodic() {
+	public void runPeriodic(Object...objects) {
 	
 	}
 
@@ -159,10 +160,12 @@ public class Shooter implements Subsystem {
 	public void setJawPosition(JawPosition _jawPosition) {
 		switch(_jawPosition) {
 			case OPEN : {
+				SmartDashboard.putString("Jaw Position", "Open");
 				this.m_jaw.set(false);
 			}; break;
 			
 			case CLOSE : {
+				SmartDashboard.putString("Jaw Position", "Close");
 				this.m_jaw.set(true);
 			}; break;
 		}
@@ -189,10 +192,12 @@ public class Shooter implements Subsystem {
 	public void setTriggerPosition(TriggerPosition _triggerPosition) { 
 		switch(_triggerPosition) {
 			case EXTEND : {
+				SmartDashboard.putString("Trigger Position", "Extend");
 				this.m_trigger.set(true);
 			}; break;
 			
 			case RETRACT : {
+				SmartDashboard.putString("Trigger Position", "Retract");
 				this.m_trigger.set(false);
 			}; break;
 		}
@@ -216,67 +221,66 @@ public class Shooter implements Subsystem {
 	 * speeds in the enumeration.
 	 * 
 	 * @param _speed the speed of the shooter
-	 *//*
+	 */
 	public void setShooterSpeed(ShooterSpeed _speed) {		
 		switch(_speed) {
 			case LOAD : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "LOAD");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "LOAD");
 				this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());
 				
-				this.m_shooterTrigger.set(false);
-				this.m_clawGripper.set(false);
+//				this.m_trigger.set(false);
+//				this.m_jaw.set(false);
 			}; break;
 				
 			case SHOOT : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "SHOOT");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "SHOOT");
 				this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());
+				
+				this.setJawPosition(JawPosition.OPEN);;		
 			}; break;
 			
 			case CLOSE : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "CLOSE");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "CLOSE");
 				this.m_topRoller.set(internalShooterSpeed.CLOSE_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.CLOSE_BOTTOM.getSpeed());
 			}; break;
 			
 			case PORTCULLIS : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "PORTCULLIS");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "PORTCULLIS");
 				this.m_topRoller.set(internalShooterSpeed.PORTCULLIS.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.PORTCULLIS.getSpeed());
 			}; break;	
+			
 			case TRIGGER : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "LOAD TRIGGER");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "LOAD TRIGGER");
 				this.m_topRoller.set(internalShooterSpeed.LOAD_TRIGGER.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.LOAD_TRIGGER.getSpeed());
 			}; break;
 			
-			default : {
+			case OFF : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "OFF");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "OFF");
 				this.m_topRoller.set(0);
 				this.m_bottomRoller.set(0);
-				
-				this.m_shooterTrigger.set(false);
-				this.m_clawGripper.set(false);
+			}; break;
+			
+			default : {
+				SmartDashboard.putString("Shooter Speed - Top Roller ", "U");
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "U");
+				this.m_topRoller.set(0);
+				this.m_bottomRoller.set(0);			
 			}; break;
 		}		
 	}    
-    
-    public void Stop(){
-//    	ShooterTop.disableControl();
-    	setMotors(0,0,0);    	
-//    	ShooterBottom.set(0);
-    //	shooterTrigger.set(0);
+/*  
 
-    }
-    
-    public void closeJaws(){
-    
-    	m_clawGripper.set(true);
-    	
-    }
-    public void openJaws(){
-    	m_clawGripper.set(false);
-    }
-    public void GripBall (){
-    		shooterGripper.set(true);
-    		shooterTrigger.set(false);
-    }
-    
     public void SpinUp(){
 //    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
     	setMotors(internalShooterSpeed.SHOOT_TOP, internalShooterSpeed.SHOOT_BOTTOM,0); // Not implementing speed control
@@ -287,12 +291,6 @@ public class Shooter implements Subsystem {
     	setMotors(internalShooterSpeed.CLOSE_TOP,internalShooterSpeed.CLOSE_TOP,0); // Not implementing speed control
     	m_clawGripper.set(false);
     }
-  //  public boolean IsAbleToFire(){
-    	if((ShooterTop.getSpeed()>=ShootSetpointTop - (ShootSetpointTop * ShootSetpointMaxErrorPercent)) &&
-    			(ShooterBottom.getSpeed()>=ShootSetpointBottom - (ShootSetpointBottom * ShootSetpointMaxErrorPercent)))
-    		return true;
-    	return false; //figure this out later
-    //}
     
     public void Fire()
     {
@@ -312,30 +310,6 @@ public class Shooter implements Subsystem {
     	
     	setMotors(m_shootSetpointTop,m_shootSetpointBottom,100);	// Not implementing speed control
     }
-    
-    public void AutoShootAndFire(){
-    	SpinUp();
-	if(CanFire())
-	{
-		Fire();
-	}
-	
-    }
-    public void shooterTrigger(){
-    	m_shooterTrigger.set(true);
-    }
-    public void shooterTriggerFalse(){
-    	m_shooterTrigger.set(false);
-    }
-    public void Portcullis(){
-//    ShooterTop.set(portcullis);
-//    ShooterBottom.set(0);
-    	System.out.println("\nPORTCULLIS\n");
-    }
 
-	public boolean CanFire()
-	{
-		return m_topRoller.getSpeed() > minSpeedToFire;
-	}
 */
 }

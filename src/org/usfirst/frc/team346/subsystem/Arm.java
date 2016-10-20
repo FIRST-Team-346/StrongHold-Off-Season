@@ -4,6 +4,7 @@ import org.usfirst.frc.team346.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * TODO: Recalibrate encoders for arm positioning
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
  * @author Grant R.
  *
  */
-public class Arm {
+public class Arm implements Subsystem {
 	
 	/**
 	 * Public enumeration for arm position. 
@@ -70,18 +71,58 @@ public class Arm {
 	}
 	
 	/**
+	 * This method enables the subsystem. 
+	 * This allows the subsystem to 
+	 * actually be driven.
+	 */
+	@Override
+	public void enable() {
+		this.m_armMotor.enable();
+	}
+		
+	/**
+	 * This method disables the subsystem. 
+	 * This method could be used for any 
+	 * sort of safety driven disable.
+	 */
+	@Override
+	public void disable() {
+		this.m_armMotor.disable();
+	}
+	
+	/**
+	 * This method should be called during the 
+	 * autonomousPeriodic() and/or teleopPeriodic()
+	 * methods. It is the main entry point for all
+	 * subsystem logic.
+	 */
+	@Override
+	public void runPeriodic(Object...objects) {
+		
+	}
+	
+	/**
 	 * Set the arm position to a specified position.
 	 * 
 	 * @param _position target position of the arm
 	 */
-	public void setArmPosition(double _position) {
-		if (this.getArmPosition() != _position) {
-			
-			System.out.println("Setting arm to: " + this.m_armMotor.getSetpoint());
-			System.out.println("Current arm position: " + this.m_armMotor.get());			
-			
-			this.m_armMotor.set(_position);
+	public void setArmPosition(ArmPosition _position) {
+		if (this.getArmPosition() != _position.getPosition()) {
+												
+			this.m_armMotor.set(_position.getPosition());
 		}	
+		switch(_position) {
+			case LOAD : SmartDashboard.putString("Arm Position ", "LOAD");
+			break;						
+			case TRAVEL : SmartDashboard.putString("Arm Position ", "TRAVEL");
+			break;	
+			case SHOOT : SmartDashboard.putString("Arm Position ", "SHOOT");
+			break;	
+			case START : SmartDashboard.putString("Arm Position ", "START");
+			break;	
+			case CLIMB : SmartDashboard.putString("Arm Position ", "CLIMB");
+			break;	
+		}
 	}	
 	
 	/**
