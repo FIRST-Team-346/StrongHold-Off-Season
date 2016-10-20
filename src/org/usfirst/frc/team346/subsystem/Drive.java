@@ -49,8 +49,7 @@ public class Drive implements Subsystem {
 	
 	/**
 	 * Default constructor for Drive object. Initializes
-	 * all member variables and the motor controller settings.
-	 * TODO: Figure out a way to pass port maps into constructor
+	 * all member variables and the motor controller settings. 
 	 */
 	public Drive() {
 		this.m_leftDriveMaster = new CANTalon(RobotMap.LEFT_DRIVE_MASTER_PORT);		// Instantiate left master motor
@@ -86,7 +85,7 @@ public class Drive implements Subsystem {
 	 * autonomous and/or teleoperation periodic methods.
 	 */
 	@Override
-	public void runPeriodic() {
+	public void runPeriodic(Object...objects) {
 		
 	}
 	
