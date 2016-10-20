@@ -230,8 +230,7 @@ public class Shooter implements Subsystem {
 				this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());
 				
-//				this.m_trigger.set(false);
-//				this.m_jaw.set(false);
+				this.setJawPosition(JawPosition.OPEN);
 			}; break;
 				
 			case SHOOT : {
@@ -240,7 +239,7 @@ public class Shooter implements Subsystem {
 				this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());
 				
-				this.setJawPosition(JawPosition.OPEN);;		
+				this.setJawPosition(JawPosition.OPEN);	
 			}; break;
 			
 			case CLOSE : {
@@ -279,37 +278,4 @@ public class Shooter implements Subsystem {
 			}; break;
 		}		
 	}    
-/*  
-
-    public void SpinUp(){
-//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	setMotors(internalShooterSpeed.SHOOT_TOP, internalShooterSpeed.SHOOT_BOTTOM,0); // Not implementing speed control
-    	m_clawGripper.set(false);
-    }
-    public void ShootClose(){
-//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	setMotors(internalShooterSpeed.CLOSE_TOP,internalShooterSpeed.CLOSE_TOP,0); // Not implementing speed control
-    	m_clawGripper.set(false);
-    }
-    
-    public void Fire()
-    {
-    		if(m_clawGripper.get())
-    		{
-    			m_clawGripper.set(false);
-    			m_shooterTrigger.set(true);
-    		}
-    		
-//    		setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    		
-        	setMotors(internalShooterSpeed.SHOOT_TOP, internalShooterSpeed.SHOOT_BOTTOM, 100); // Not implementing speed control
-    }
-    public void ejectBall()
-    {
-//    	setMotors(1.0,1.0, 0.0);	// Set shoot motors to full speed
-    	
-    	setMotors(m_shootSetpointTop,m_shootSetpointBottom,100);	// Not implementing speed control
-    }
-
-*/
 }
