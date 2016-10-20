@@ -123,69 +123,7 @@ public class Robot extends IterativeRobot {
     	}
     }
 
-/*
-    public void processShootingInput(){
-		if(buttonBoard.getLightOn()){
-			//System.out.println("Light is On");
-			//System.out.println(light.get());
-			light.set(Relay.Value.kForward);
-		}
-    	if(buttonBoard.getOpenJaws()){
-			robotShooter.openJaws();
-		}
-		if(!buttonBoard.getTakeIn() && !buttonBoard.getSpinrollers() && !buttonBoard.getOpenJaws() && !buttonBoard.getShootClose() && !buttonBoard.getDeployHook() && !buttonBoard.getStartHanging() && !buttonBoard.getEjectBall()){
-			robotShooter.closeJaws();
-		}
-		
-    	if(buttonBoard.getEjectBall())
-		{
-			//System.out.println("Shooting");
-			lightManager.Flash("red", 1500);
-			robotArm.Shoot();
-			robotShooter.openJaws();
-			light.set(Relay.Value.kForward);
-		}
-    	if(!buttonBoard.getEjectBall() && !buttonBoard.getSpinrollers() && !buttonBoard.getLightOn()){
-    		light.set(Relay.Value.kOff);
-    	}
-    	if(buttonBoard.getTriggered()){
-    		robotShooter.trigger();
-    	} 
-    	if(!buttonBoard.getTriggered()){
-    		robotShooter.triggerFalse();
-    	}
-		if(buttonBoard.getTakeIn())
-		{
-			//System.out.println("Taking in");
-			lightManager.Flash("blue", 1500);
-			robotArm.LoadBall();
-//			robotShooter.LoadBall();
-			motors.shooterTop.set(1);
-			robotShooter.openJaws();
-		}
-		if(!buttonBoard.getEjectBall() && !buttonBoard.getTakeIn() && !buttonBoard.getSpinrollers() && !buttonBoard.getShootClose()){
-			//System.out.println("Roller Stop");
-//			robotShooter.Stop();
-			motors.shooterTop.set(0);
-			//robotShooter.GripBall();
-		}
-		if(buttonBoard.getSpinrollers()){
-			//System.out.println("Spinning Rollers");
-//			robotShooter.SpinUp();
-			motors.shooterTop.enableControl();
-			motors.shooterBottom.enableControl();
-			motors.shooterTop.set(1);
-			
-			robotShooter.openJaws();
-			light.set(Relay.Value.kForward);
-		}
-		if(buttonBoard.getShootClose()) {
-//        	robotShooter.ShootClose();
-			motors.shooterTop.set(1);
-        	robotShooter.openJaws();
-		}
-    }
-    
+/*    
     public void processWinchInput()
     {
 		if(buttonBoard.getDeployHook()) //&& (startTime-hookDuration)>=hookDuration)

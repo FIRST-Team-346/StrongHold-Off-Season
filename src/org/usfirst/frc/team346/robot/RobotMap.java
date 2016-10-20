@@ -60,11 +60,11 @@ public class RobotMap {
 	public static final int SHOOTER_BOTTOM_ROLLER_CODES_PER_REV = 360;
 	
 	// Shooter PID parameters:
-	public static final int SHOOTER_TOP_ROLLER_PID_P = 10;
-	public static final int SHOOTER_TOP_ROLLER_PID_I = 0;
-	public static final int SHOOTER_TOP_ROLLER_PID_D = 0;
+	public static final double SHOOTER_TOP_ROLLER_PID_P = 0.22;
+	public static final double SHOOTER_TOP_ROLLER_PID_I = 0;
+	public static final double SHOOTER_TOP_ROLLER_PID_D = 0;
 	
-	public static final int SHOOTER_BOTTOM_ROLLER_PID_P = 10;
-	public static final int SHOOTER_BOTTOM_ROLLER_PID_I = 0;
-	public static final int SHOOTER_BOTTOM_ROLLER_PID_D = 0;
+	public static final double SHOOTER_BOTTOM_ROLLER_PID_P = 0.2;
+	public static final double SHOOTER_BOTTOM_ROLLER_PID_I = 0;
+	public static final double SHOOTER_BOTTOM_ROLLER_PID_D = 0;
 }
