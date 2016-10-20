@@ -11,7 +11,9 @@ public class Climber {
 
 	/*
 	 * The engagement lock might need to be
-	 * changed to a double solenoid.
+	 * changed to a double solenoid. This
+	 * is the solenoid on the transmission
+	 * to engage the motor.
 	 */
 	private Solenoid m_engagementLock;
 	private CANTalon m_winchMotor;
