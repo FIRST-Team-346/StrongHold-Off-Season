@@ -15,6 +15,7 @@ import org.usfirst.frc.team346.subsystem.Shooter.TriggerPosition;
 import org.usfirst.frc.team346.subsystem.Climber;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -65,6 +66,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control.
      */
     public void teleopPeriodic() {
+    	System.out.println(this.m_armSubsystem.getArmPosition());
+    	
     	// Compressor event
     	this.m_compressor.start();
     	    	        	
@@ -122,35 +125,5 @@ public class Robot extends IterativeRobot {
     		
     	}
     }
-
-/*    
-    public void processWinchInput()
-    {
-		if(buttonBoard.getDeployHook()) //&& (startTime-hookDuration)>=hookDuration)
-		{
-			//System.out.println("Deploying Hook");
-			robotWinch.DeployHook();
-			robotShooter.openJaws();
-			}
-		if(buttonBoard.getStartHanging())
-		{
-			//System.out.println("Winch");
-			robotWinch.startHanging();
-			robotWinch.retractHook();
-			robotShooter.openJaws();
-		}
-		if(!buttonBoard.getStartHanging()&&!buttonBoard.getWinchPush()){
-			robotWinch.stopTurning();
-		}
-		if(!buttonBoard.getDeployHook() && !buttonBoard.getStartHanging())
-		{
-			robotWinch.normalHook();
-		}
-		if(buttonBoard.getWinchPush())
-		{
-			robotWinch.reverseWinch();
-			robotShooter.openJaws();
-		}
-    }     
-*/    
+    
 }
