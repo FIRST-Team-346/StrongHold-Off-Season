@@ -232,7 +232,7 @@ public class Shooter implements Subsystem {
 				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "LOAD");				
 				/*this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());*/
-				this.m_topRoller.set(-1);
+				this.m_topRoller.set(1);
 				this.m_bottomRoller.set(this.m_topRoller.getDeviceID());
 				
 				SmartDashboard.putNumber("Top Roller Setpoint ", this.m_topRoller.getSetpoint());
@@ -246,7 +246,7 @@ public class Shooter implements Subsystem {
 				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "SHOOT");
 				/*this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
 				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());*/
-				this.m_topRoller.set(1);
+				this.m_topRoller.set(-1);
 				this.m_bottomRoller.set(this.m_topRoller.getDeviceID());
 				
 				SmartDashboard.putNumber("Top Roller Setpoint ", this.m_topRoller.getSetpoint());

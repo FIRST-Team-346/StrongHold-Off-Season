@@ -8,6 +8,7 @@ import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
+import org.usfirst.frc.team346.subsystem.Harvester.HarvesterPosition;
 import org.usfirst.frc.team346.subsystem.Harvester.HarvesterRollerState;
 import org.usfirst.frc.team346.subsystem.Harvester;
 import org.usfirst.frc.team346.subsystem.Shooter;
@@ -86,6 +87,7 @@ public class Robot extends IterativeRobot {
     	// Arm position events
     	if (this.m_buttonBoard.getRawButton(8)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
+    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
     		
     	} else if (this.m_buttonBoard.getRawButton(9)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.CLIMB);
@@ -98,6 +100,7 @@ public class Robot extends IterativeRobot {
     		
     	} else if (this.m_buttonBoard.getRawButton(12)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
+    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
     	}    	    	    	   
     	
     	// Jaw open/close and shooting events
@@ -133,6 +136,14 @@ public class Robot extends IterativeRobot {
     	// Harvester events
     	if (this.m_buttonBoard.getRawButton(4)) {
     		this.m_harvesterSubsystem.toggleHarvesterPosition();
+    	}
+    	
+    	if (this.m_leftJoystick.getRawButton(1)) {
+    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.RETRACT);
+    	}
+    	
+    	if (this.m_leftJoystick.getRawButton(2)) {
+    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
     	}
     	
     	// Hook/winch events

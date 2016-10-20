@@ -37,6 +37,14 @@ public class Harvester implements Subsystem {
 	private Talon m_rollerMotor;
 	private Solenoid m_extender;
 	
+	/*
+	 * This variable is used to keep track of 
+	 * when the harvester position was last toggled. 
+	 * Without it, the harvester is toggled too quickly
+	 * for it to take action.  
+	 */
+	private long m_previousToggle;
+	
 	/**
 	 * Default constructor for Harvester object.
 	 */
@@ -44,6 +52,7 @@ public class Harvester implements Subsystem {
 		this.m_rollerMotor = new Talon(RobotMap.HARVESTER_MOTOR_PORT);
 		this.m_extender = new Solenoid(RobotMap.HARVESTER_EXTENDER_MODULE,
 				RobotMap.HARVESTER_EXTENDER_PORT);
+		this.m_previousToggle = System.currentTimeMillis();
 		this.enable();
 	}
 	
@@ -99,9 +108,13 @@ public class Harvester implements Subsystem {
 	/**
 	 * Toggle the harvester position.
 	 */
-	public void toggleHarvesterPosition() {		
-		boolean tmp = this.m_extender.get();
-		this.m_extender.set(!tmp);
+	public void toggleHarvesterPosition() {				
+		if (System.currentTimeMillis() - this.m_previousToggle >= 500) {
+			boolean tmp = this.m_extender.get();
+			this.m_extender.set(!tmp);
+			this.m_previousToggle = System.currentTimeMillis();
+		}
+		
 	}
 	
 	/**

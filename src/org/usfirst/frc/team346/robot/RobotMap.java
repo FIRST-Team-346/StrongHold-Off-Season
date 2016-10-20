@@ -54,7 +54,7 @@ public class RobotMap {
 	public static final int WINCH_ENGAGEMENT_LOCK_MODULE = 2;
 	public static final int WINCH_ENGAGEMENT_LOCK_PORT = 4;	
 	
-	public static final int HARVESTER_EXTENDER_MODULE = 1;
+	public static final int HARVESTER_EXTENDER_MODULE = 2;
 	public static final int HARVESTER_EXTENDER_PORT = 4;
 	
 	// Compressor port:
