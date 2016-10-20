@@ -100,20 +100,23 @@ public class Shooter implements Subsystem {
 	 */
     public Shooter() {
     	this.m_topRoller = new CANTalon(RobotMap.SHOOTER_TOP_ROLLER_PORT);								// Init top roller
-    	this.m_topRoller.changeControlMode(TalonControlMode.Speed);										// Sets the top roller to speed mode
+    	this.m_topRoller.changeControlMode(TalonControlMode.PercentVbus);
+    	/*this.m_topRoller.changeControlMode(TalonControlMode.Speed);										// Sets the top roller to speed mode
     	this.m_topRoller.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);						// Sets feedback device to Quad Encoder
     	this.m_topRoller.configEncoderCodesPerRev(RobotMap.SHOOTER_TOP_ROLLER_CODES_PER_REV);			// Sets codes per revolution to 1024
     	this.m_topRoller.setPID(RobotMap.SHOOTER_TOP_ROLLER_PID_P, 										// Sets the PID parameters
     			RobotMap.SHOOTER_TOP_ROLLER_PID_I, 
-    			RobotMap.SHOOTER_TOP_ROLLER_PID_D);    	
+    			RobotMap.SHOOTER_TOP_ROLLER_PID_D);*/  	
     	
-    	this.m_bottomRoller = new CANTalon(RobotMap.SHOOTER_BOTTOM_ROLLER_PORT);						// Init bottom roller					
-    	this.m_bottomRoller.changeControlMode(TalonControlMode.Speed);									// Sets the bottom roller to speed mode
+    	this.m_bottomRoller = new CANTalon(RobotMap.SHOOTER_BOTTOM_ROLLER_PORT);						// Init bottom roller
+    	this.m_bottomRoller.changeControlMode(TalonControlMode.Follower);    	
+    
+    	/*this.m_bottomRoller.changeControlMode(TalonControlMode.Speed);									// Sets the bottom roller to speed mode
     	this.m_bottomRoller.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);						// Sets feedback device to Quad Encoder
     	this.m_bottomRoller.configEncoderCodesPerRev(RobotMap.SHOOTER_BOTTOM_ROLLER_CODES_PER_REV);		// Sets codes per revolution to 360						
     	this.m_bottomRoller.setPID(RobotMap.SHOOTER_BOTTOM_ROLLER_PID_P, 								// Sets the PID parameters
     			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_I, 
-    			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_D);
+    			RobotMap.SHOOTER_BOTTOM_ROLLER_PID_D);*/
     	
     	this.m_jaw = new Solenoid(RobotMap.SHOOTER_CLAW_GRIPPER_MODULE,
     			RobotMap.SHOOTER_CLAW_GRIPPER_PORT);													// Init claw solenoid
@@ -226,9 +229,14 @@ public class Shooter implements Subsystem {
 		switch(_speed) {
 			case LOAD : {
 				SmartDashboard.putString("Shooter Speed - Top Roller ", "LOAD");
-				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "LOAD");
-				this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
-				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());
+				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "LOAD");				
+				/*this.m_topRoller.set(internalShooterSpeed.LOAD_TOP.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.LOAD_BOTTOM.getSpeed());*/
+				this.m_topRoller.set(-1);
+				this.m_bottomRoller.set(this.m_topRoller.getDeviceID());
+				
+				SmartDashboard.putNumber("Top Roller Setpoint ", this.m_topRoller.getSetpoint());
+				SmartDashboard.putNumber("Bottom Roller Setpoint ", this.m_bottomRoller.getSetpoint());
 				
 				this.setJawPosition(JawPosition.OPEN);
 			}; break;
@@ -236,8 +244,13 @@ public class Shooter implements Subsystem {
 			case SHOOT : {
 				SmartDashboard.putString("Shooter Speed - Top Roller ", "SHOOT");
 				SmartDashboard.putString("Shooter Speed - Bottom Roller ", "SHOOT");
-				this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
-				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());
+				/*this.m_topRoller.set(internalShooterSpeed.SHOOT_TOP.getSpeed());
+				this.m_bottomRoller.set(internalShooterSpeed.SHOOT_BOTTOM.getSpeed());*/
+				this.m_topRoller.set(1);
+				this.m_bottomRoller.set(this.m_topRoller.getDeviceID());
+				
+				SmartDashboard.putNumber("Top Roller Setpoint ", this.m_topRoller.getSetpoint());
+				SmartDashboard.putNumber("Bottom Roller Setpoint ", this.m_bottomRoller.getSetpoint());
 				
 				this.setJawPosition(JawPosition.OPEN);	
 			}; break;

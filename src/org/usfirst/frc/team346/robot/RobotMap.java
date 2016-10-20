@@ -27,6 +27,8 @@ public class RobotMap {
 	
 	public static final int WINCH_MOTOR_PORT = 6;
 	
+	public static final int HARVESTER_MOTOR_PORT = 0;
+	
 	/**
 	 * TODO: Figure out what "Hook" and "HookSupply" mean
 	 */
@@ -52,6 +54,9 @@ public class RobotMap {
 	public static final int WINCH_ENGAGEMENT_LOCK_MODULE = 2;
 	public static final int WINCH_ENGAGEMENT_LOCK_PORT = 4;	
 	
+	public static final int HARVESTER_EXTENDER_MODULE = 1;
+	public static final int HARVESTER_EXTENDER_PORT = 4;
+	
 	// Compressor port:
 	public static final int COMPRESSOR_PORT = 2;
 	
@@ -60,7 +65,7 @@ public class RobotMap {
 	public static final int SHOOTER_BOTTOM_ROLLER_CODES_PER_REV = 360;
 	
 	// Shooter PID parameters:
-	public static final double SHOOTER_TOP_ROLLER_PID_P = 0.22;
+	public static final double SHOOTER_TOP_ROLLER_PID_P = 0.2;
 	public static final double SHOOTER_TOP_ROLLER_PID_I = 0;
 	public static final double SHOOTER_TOP_ROLLER_PID_D = 0;
 	

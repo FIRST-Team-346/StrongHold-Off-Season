@@ -8,6 +8,8 @@ import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
+import org.usfirst.frc.team346.subsystem.Harvester.HarvesterRollerState;
+import org.usfirst.frc.team346.subsystem.Harvester;
 import org.usfirst.frc.team346.subsystem.Shooter;
 import org.usfirst.frc.team346.subsystem.Shooter.JawPosition;
 import org.usfirst.frc.team346.subsystem.Shooter.ShooterSpeed;
@@ -34,6 +36,7 @@ public class Robot extends IterativeRobot {
 	private Drive m_driveSubsystem;		// Drive subsystem
 	private Arm m_armSubsystem;			// Arm subsystem
 	private Shooter m_shooterSubsystem;	// Shooter subsystem
+	private Harvester m_harvesterSubsystem;
 	private Climber m_climberSubsystem; 	// Winch subsystem
 	
 	// Compressor declaration
@@ -56,6 +59,7 @@ public class Robot extends IterativeRobot {
     	this.m_driveSubsystem = new Drive();								// Init the Drive subsystem
     	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
     	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
+    	this.m_harvesterSubsystem = new Harvester();
 //    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
     	
     	// Compressor instantiations
@@ -103,12 +107,18 @@ public class Robot extends IterativeRobot {
     	
     	if (this.m_buttonBoard.getRawButton(6)) {
     		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.SHOOT);
+    		this.m_harvesterSubsystem.setHarvesterRoller(HarvesterRollerState.EJECT);
+    	} else if (this.m_buttonBoard.getRawButton(8)) {
+    		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.LOAD);
+    		this.m_harvesterSubsystem.setHarvesterRoller(HarvesterRollerState.INTAKE);
     	} else {
     		this.m_shooterSubsystem.setShooterSpeed(ShooterSpeed.OFF);
+    		this.m_harvesterSubsystem.setHarvesterRoller(HarvesterRollerState.STOP);
     	} 
     	
     	if (!this.m_buttonBoard.getRawButton(3) && 
-    			!this.m_buttonBoard.getRawButton(6)) {
+    			!this.m_buttonBoard.getRawButton(6) &&
+    			!this.m_buttonBoard.getRawButton(8)) {
     		this.m_shooterSubsystem.setJawPosition(JawPosition.CLOSE);
     	}
     	
@@ -119,6 +129,11 @@ public class Robot extends IterativeRobot {
     	} else {
     		this.m_shooterSubsystem.setTriggerPosition(TriggerPosition.RETRACT);
     	}      	    
+    	
+    	// Harvester events
+    	if (this.m_buttonBoard.getRawButton(4)) {
+    		this.m_harvesterSubsystem.toggleHarvesterPosition();
+    	}
     	
     	// Hook/winch events
     	if (this.m_buttonBoard.getRawButton(-1)) {
