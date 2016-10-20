@@ -5,9 +5,9 @@ import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Shooter;
 
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-
-public class SimpleStrongholdAutonomous {
 /*
+public class SimpleStrongholdAutonomous {
+
 	Drive RobotDrive;
 	Gyro gyro;
 	Arm Arm;
@@ -15,11 +15,10 @@ public class SimpleStrongholdAutonomous {
 	boolean setTurn = false;
 	double heading = 0.0;
 
-	public SimpleStrongholdAutonomous(Drive D, Gyro gyro, Arm arm, Shooter Shooter){
+	public SimpleStrongholdAutonomous(Drive D, Gyro gyro, Arm arm){
 		RobotDrive = D;
 		this.gyro = gyro;
 		this.Arm = arm;
-		this.Shooter = Shooter;
 	}
 	
 
@@ -39,8 +38,9 @@ public class SimpleStrongholdAutonomous {
 			Arm.Shoot();
 			RobotDrive.HighGear();
 		}
-	}*/
+	}
 }
 
 	
 
+*/

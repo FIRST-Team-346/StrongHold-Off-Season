@@ -15,6 +15,7 @@ import org.usfirst.frc.team346.subsystem.Shooter.TriggerPosition;
 import org.usfirst.frc.team346.subsystem.Climber;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -65,6 +66,8 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control.
      */
     public void teleopPeriodic() {
+    	System.out.println(this.m_armSubsystem.getArmPosition());
+    	
     	// Compressor event
     	this.m_compressor.start();
     	    	        	
@@ -121,6 +124,11 @@ public class Robot extends IterativeRobot {
     	if (this.m_buttonBoard.getRawButton(-1)) {
     		
     	}
+    }
+
+    @Override
+    public void testPeriodic() {
+    	SmartDashboard.putNumber("Arm Position ", this.m_armSubsystem.getArmPosition());
     }
 
 /*

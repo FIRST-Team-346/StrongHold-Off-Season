@@ -28,11 +28,11 @@ public class Arm implements Subsystem {
 	 *
 	 */
 	public enum ArmPosition {
-		LOAD(262),		// Original 176
-		TRAVEL(358),	// Original 254
-		SHOOT(485),		// Original 392				
-		START(397),		// Original 339
-		CLIMB(530);		// Original 680
+		LOAD(220),		// Original 176
+		TRAVEL(297),	// Original 254
+		SHOOT(470),		// Original 392				
+		START(372),		// Original 339
+		CLIMB(502);		// Original 680
 		
 		private int m_position;
 		
@@ -45,6 +45,7 @@ public class Arm implements Subsystem {
 		public int getPosition() {
 			return this.m_position;
 		}
+		
 		
 		/**
 		 * Custom constructor for arm position enumeration
