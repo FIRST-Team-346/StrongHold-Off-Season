@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
+import org.usfirst.frc.team346.subsystem.Climber.HookPosition;
+import org.usfirst.frc.team346.subsystem.Climber.MotorState;
 import org.usfirst.frc.team346.subsystem.Drive;
 import org.usfirst.frc.team346.subsystem.Drive.GearSpeed;
 import org.usfirst.frc.team346.subsystem.Harvester.HarvesterPosition;
@@ -61,7 +63,7 @@ public class Robot extends IterativeRobot {
     	this.m_armSubsystem = new Arm();									// Init the Arm subsystem
     	this.m_shooterSubsystem = new Shooter();							// Init the Shooter subsystem
     	this.m_harvesterSubsystem = new Harvester();
-//    	this.m_winchSubsystem = new Winch();								// Init the Winch subsystem
+    	this.m_climberSubsystem = new Climber();								// Init the Winch subsystem
     	
     	// Compressor instantiations
     	this.m_compressor = new Compressor(RobotMap.COMPRESSOR_PORT);		// Instantiate the pneumatic compressor
@@ -70,9 +72,7 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control.
      */
-    public void teleopPeriodic() {
-    	System.out.println(this.m_armSubsystem.getArmPosition());
-    	
+    public void teleopPeriodic() {    	
     	// Compressor event
     	this.m_compressor.start();
     	    	        	
@@ -148,8 +148,22 @@ public class Robot extends IterativeRobot {
     	
     	// Hook/winch events
     	if (this.m_buttonBoard.getRawButton(1)) {
-    		
+    		this.m_climberSubsystem.setHookPosition(HookPosition.EXTEND);
+    	} else if (this.m_buttonBoard.getRawButton(5)) {
+    		this.m_climberSubsystem.setHookPosition(HookPosition.RETRACT);
+    	} else {
+    		this.m_climberSubsystem.setHookPosition(HookPosition.RESET);
+    	}
+    	
+    	if (this.m_buttonBoard.getRawButton(5)) {
+    		this.m_climberSubsystem.setMotorState(MotorState.HANG);
+       	} else {
+    		this.m_climberSubsystem.setMotorState(MotorState.STOP);
     	}
     }
     
+    @Override
+    public void testPeriodic() {
+    	this.m_climberSubsystem.setHookPosition(HookPosition.RETRACT);
+    }
 }

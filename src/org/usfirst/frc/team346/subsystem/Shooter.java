@@ -163,12 +163,12 @@ public class Shooter implements Subsystem {
 	public void setJawPosition(JawPosition _jawPosition) {
 		switch(_jawPosition) {
 			case OPEN : {
-				SmartDashboard.putString("Jaw Position", "Open");
+				SmartDashboard.putString("Jaw Position ", "OPEN");
 				this.m_jaw.set(false);
 			}; break;
 			
 			case CLOSE : {
-				SmartDashboard.putString("Jaw Position", "Close");
+				SmartDashboard.putString("Jaw Position ", "CLOSE");
 				this.m_jaw.set(true);
 			}; break;
 		}
@@ -195,12 +195,12 @@ public class Shooter implements Subsystem {
 	public void setTriggerPosition(TriggerPosition _triggerPosition) { 
 		switch(_triggerPosition) {
 			case EXTEND : {
-				SmartDashboard.putString("Trigger Position", "Extend");
+				SmartDashboard.putString("Trigger Position ", "EXTEND");
 				this.m_trigger.set(true);
 			}; break;
 			
 			case RETRACT : {
-				SmartDashboard.putString("Trigger Position", "Retract");
+				SmartDashboard.putString("Trigger Position ", "RETRACT");
 				this.m_trigger.set(false);
 			}; break;
 		}

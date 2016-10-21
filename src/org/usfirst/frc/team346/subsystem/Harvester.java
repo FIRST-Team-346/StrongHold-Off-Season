@@ -131,11 +131,15 @@ public class Harvester implements Subsystem {
 			}; break;
 			
 			case INTAKE : {
-				this.m_rollerMotor.set(-1);
+				if (this.m_extender.get() == false) {
+					this.m_rollerMotor.set(-1);
+				}
 			}; break;
 			
 			case EJECT : {
-				this.m_rollerMotor.set(1);
+				if (this.m_extender.get() == false) {
+					this.m_rollerMotor.set(1);
+				}			
 			}; break;
 		}
 	}	
