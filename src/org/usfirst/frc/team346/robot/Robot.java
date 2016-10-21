@@ -4,6 +4,9 @@ package org.usfirst.frc.team346.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
+import org.usfirst.frc.team346.autonomous.AutonomousSequence;
+import org.usfirst.frc.team346.autonomous.BasicAutonomous;
+import org.usfirst.frc.team346.autonomous.LowBarAutonomous;
 import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Climber.HookPosition;
@@ -45,6 +48,9 @@ public class Robot extends IterativeRobot {
 	// Compressor declaration
 	private Compressor m_compressor;	// Pneumatic compressor
 	
+	// Autonomous sequence declaration
+	private AutonomousSequence m_autoSequence;
+	
 	/**
 	 * This is the main initialization method. 
 	 * This method is called when the robot first starts up. 
@@ -67,8 +73,23 @@ public class Robot extends IterativeRobot {
     	
     	// Compressor instantiations
     	this.m_compressor = new Compressor(RobotMap.COMPRESSOR_PORT);		// Instantiate the pneumatic compressor
+    
+    	// Autonomous sequence instantiations
+//    	this.m_autoSequence = new BasicAutonomous(this.m_driveSubsystem);
+    	this.m_autoSequence = new LowBarAutonomous(this.m_driveSubsystem,
+    			this.m_armSubsystem, this.m_harvesterSubsystem);
     }
 
+    @Override
+    public void autonomousInit() {
+    	this.m_autoSequence.init();
+    }
+    
+    @Override
+    public void autonomousPeriodic() {
+    	this.m_autoSequence.doSequence();
+    }
+    
     /**
      * This function is called periodically during operator control.
      */
@@ -136,15 +157,7 @@ public class Robot extends IterativeRobot {
     	// Harvester events
     	if (this.m_buttonBoard.getRawButton(4)) {
     		this.m_harvesterSubsystem.toggleHarvesterPosition();
-    	}
-    	
-    	if (this.m_leftJoystick.getRawButton(1)) {
-    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.RETRACT);
-    	}
-    	
-    	if (this.m_leftJoystick.getRawButton(2)) {
-    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
-    	}
+    	}    	    
     	
     	// Hook/winch events
     	if (this.m_buttonBoard.getRawButton(1)) {
