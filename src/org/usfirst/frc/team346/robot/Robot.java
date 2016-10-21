@@ -147,7 +147,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	// Hook/winch events
-    	if (this.m_buttonBoard.getRawButton(-1)) {
+    	if (this.m_buttonBoard.getRawButton(1)) {
     		
     	}
     }
