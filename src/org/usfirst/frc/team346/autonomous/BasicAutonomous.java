@@ -38,7 +38,7 @@ public class BasicAutonomous implements AutonomousSequence {
 	@Override
 	public void doSequence() {
 		if (System.currentTimeMillis() - this.m_startTime < 5000) {
-			this.m_driveSubsystem.setDrive(-0.3, -0.3);
+			this.m_driveSubsystem.setDrive(-1, -1);
 		} else {
 			this.m_driveSubsystem.setDrive(0, 0);
 		}		

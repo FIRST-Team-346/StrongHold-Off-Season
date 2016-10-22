@@ -28,9 +28,9 @@ public class Arm implements Subsystem {
 	 *
 	 */
 	public enum ArmPosition {
-		LOAD(170),		// Original 176
-		TRAVEL(232),	// Original 254
-		SHOOT(407),		// Original 392				
+		LOAD(160),		// Original 176
+		TRAVEL(150),	// Original 254
+		SHOOT(377),		// Original 392				
 		START(307),		// Original 339
 		CLIMB(437);		// Original 680
 		
