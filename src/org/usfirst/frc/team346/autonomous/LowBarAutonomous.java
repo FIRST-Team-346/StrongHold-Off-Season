@@ -34,23 +34,17 @@ public class LowBarAutonomous implements AutonomousSequence {
 	 */
 	@Override
 	public void doSequence() {
-		if (System.currentTimeMillis() - this.m_startTime < 5000) {
-			this.m_driveSubsystem.setDrive(-0.3, -0.3);
+		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
+		if (System.currentTimeMillis() - this.m_startTime >= 500) {
+			this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
+		}		
+		
+		if ((System.currentTimeMillis() - this.m_startTime >= 4000)
+				&& (System.currentTimeMillis() - this.m_startTime < 9000)) {
+			this.m_driveSubsystem.setDrive(-0.5, -0.5);
 		} else {
 			this.m_driveSubsystem.setDrive(0, 0);
-		}
-		
-		if (System.currentTimeMillis() - this.m_startTime < 7000) {
-			this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.RETRACT);		
-		} else {
-			this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);			
-		}
-		
-		if (System.currentTimeMillis() - this.m_startTime < 8000) {
-			this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
-		} else {
-			this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT);
-		}		
+		}				
 	}
 	
 }
