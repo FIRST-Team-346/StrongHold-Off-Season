@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	private Compressor m_compressor;	// Pneumatic compressor
 	
 	// Autonomous sequence declaration
-	private AutonomousSequence m_autoSequence;
+//	private AutonomousSequence m_autoSequence;
 	
 	/**
 	 * This is the main initialization method. 
@@ -76,18 +76,18 @@ public class Robot extends IterativeRobot {
     
     	// Autonomous sequence instantiations
 //    	this.m_autoSequence = new BasicAutonomous(this.m_driveSubsystem);
-    	this.m_autoSequence = new LowBarAutonomous(this.m_driveSubsystem,
-    			this.m_armSubsystem, this.m_harvesterSubsystem);
+//    	this.m_autoSequence = new LowBarAutonomous(this.m_driveSubsystem,
+//    			this.m_armSubsystem, this.m_harvesterSubsystem);
     }
 
     @Override
     public void autonomousInit() {
-    	this.m_autoSequence.init();
+//    	this.m_autoSequence.init();
     }
     
     @Override
     public void autonomousPeriodic() {
-    	this.m_autoSequence.doSequence();
+//    	this.m_autoSequence.doSequence();
     }
     
     /**
