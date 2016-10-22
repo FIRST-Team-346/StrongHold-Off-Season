@@ -96,11 +96,11 @@ public class Harvester implements Subsystem {
 	public void setHarvesterPosition(HarvesterPosition _position) {
 		switch(_position) {
 			case DEPLOY : {
-				this.m_extender.set(false);				
+				this.m_extender.set(true);				
 			}; break;
 			
 			case RETRACT : {
-				this.m_extender.set(true);
+				this.m_extender.set(false);
 			}; break;
 		}
 	}
