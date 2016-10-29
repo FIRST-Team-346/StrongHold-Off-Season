@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import org.usfirst.frc.team346.autonomous.AutonomousSequence;
 import org.usfirst.frc.team346.autonomous.BasicAutonomous;
 import org.usfirst.frc.team346.autonomous.LowBarAutonomous;
+import org.usfirst.frc.team346.autonomous.RockWallAutonomous;
 import org.usfirst.frc.team346.subsystem.Arm;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Climber.HookPosition;
@@ -34,15 +35,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	// Human interface device (HID) declarations
-	private Joystick m_leftJoystick;	// Left joystick on the driver station
-	private Joystick m_rightJoystick;	// Right joystick on the driver station
-	private Joystick m_buttonBoard;		// Button board on the drive station
+	private Joystick m_leftJoystick;		// Left joystick on the driver station
+	private Joystick m_rightJoystick;		// Right joystick on the driver station
+	private Joystick m_buttonBoard;			// Button board on the drive station
 
 	// Subsystem declarations
-	private Drive m_driveSubsystem;		// Drive subsystem
-	private Arm m_armSubsystem;			// Arm subsystem
-	private Shooter m_shooterSubsystem;	// Shooter subsystem
-	private Harvester m_harvesterSubsystem;
+	private Drive m_driveSubsystem;			// Drive subsystem
+	private Arm m_armSubsystem;				// Arm subsystem
+	private Shooter m_shooterSubsystem;		// Shooter subsystem
+	private Harvester m_harvesterSubsystem;	// Harvester subsystem
 	private Climber m_climberSubsystem; 	// Winch subsystem
 	
 	// Compressor declaration
@@ -76,7 +77,7 @@ public class Robot extends IterativeRobot {
     
     	// Autonomous sequence instantiations
 //    	this.m_autoSequence = new BasicAutonomous(this.m_driveSubsystem);
-    	this.m_autoSequence = new LowBarAutonomous(this.m_driveSubsystem,
+    	this.m_autoSequence = new RockWallAutonomous(this.m_driveSubsystem,
     			this.m_armSubsystem, this.m_harvesterSubsystem);
     }
 
@@ -106,6 +107,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	// Arm position events
+    	System.out.println(this.m_armSubsystem.getArmPosition());
     	if (this.m_buttonBoard.getRawButton(8)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
     		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
@@ -122,7 +124,11 @@ public class Robot extends IterativeRobot {
     	} else if (this.m_buttonBoard.getRawButton(12)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
     		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
-    	}    	    	    	   
+    		
+    	}   else if (this.m_buttonBoard.getRawButton(13)) {
+    		this.m_armSubsystem.setArmPosition(ArmPosition.LOWBAR);
+    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
+    	}   	    	    	   
     	
     	// Jaw open/close and shooting events
     	if (this.m_buttonBoard.getRawButton(3)) {

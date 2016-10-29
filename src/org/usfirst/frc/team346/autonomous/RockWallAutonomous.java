@@ -6,15 +6,15 @@ import org.usfirst.frc.team346.subsystem.Harvester;
 import org.usfirst.frc.team346.subsystem.Arm.ArmPosition;
 import org.usfirst.frc.team346.subsystem.Harvester.HarvesterPosition;
 
-public class LowBarAutonomous implements AutonomousSequence {
-
+public class RockWallAutonomous implements AutonomousSequence {
+	
 	private Drive m_driveSubsystem;
 	private Arm m_armSubsystem;
 	private Harvester m_harvesterSubsystem;
 	
 	private long m_startTime;
 	
-	public LowBarAutonomous(Drive _driveSubsystem, 
+	public RockWallAutonomous(Drive _driveSubsystem, 
 			Arm _armSubsystem, Harvester _harvesterSubsystem) {
 		this.m_driveSubsystem = _driveSubsystem;
 		this.m_armSubsystem = _armSubsystem;
@@ -34,9 +34,9 @@ public class LowBarAutonomous implements AutonomousSequence {
 	 */
 	@Override
 	public void doSequence() {
-		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
+		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.RETRACT);
 		if (System.currentTimeMillis() - this.m_startTime >= 500) {
-			this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
+			this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
 		}		
 		
 		if ((System.currentTimeMillis() - this.m_startTime >= 4000)

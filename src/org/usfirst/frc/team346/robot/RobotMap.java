@@ -7,7 +7,7 @@ package org.usfirst.frc.team346.robot;
  * floating around.
  */
 public class RobotMap {
-	
+		
     // Human interface device (HID) ports:
 	public static final int LEFT_JOYSTICK_PORT = 0;
 	public static final int RIGHT_JOYSTICK_PORT = 1;
@@ -41,7 +41,7 @@ public class RobotMap {
 	public static final int SHOOTER_CLAW_GRIPPER_MODULE = 2;
 	public static final int SHOOTER_CLAW_GRIPPER_PORT = 6;
 	
-	public static final int HOOK_MODULE = 1;
+	public static final int HOOK_MODULE = 1; 
 	public static final int HOOK_PORT_1 = 4;
 	public static final int HOOK_PORT_2 = 5;
 	

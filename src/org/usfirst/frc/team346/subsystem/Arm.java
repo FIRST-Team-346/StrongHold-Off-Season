@@ -28,11 +28,12 @@ public class Arm implements Subsystem {
 	 *
 	 */
 	public enum ArmPosition {
-		LOAD(160),		// Original 176
-		TRAVEL(150),	// Original 254
-		SHOOT(377),		// Original 392				
-		START(307),		// Original 339
-		CLIMB(437);		// Original 680
+		LOAD(150),		
+		TRAVEL(290),	
+		SHOOT(377),						
+		START(307),		
+		CLIMB(425), 
+		LOWBAR(142);		
 		
 		private int m_position;
 		
@@ -122,7 +123,9 @@ public class Arm implements Subsystem {
 			case START : SmartDashboard.putString("Arm Position ", "START");
 			break;	
 			case CLIMB : SmartDashboard.putString("Arm Position ", "CLIMB");
-			break;	
+			break;
+			case LOWBAR : SmartDashboard.putString("Arm Position ", "LOWBAR");
+			break;
 		}
 	}	
 	
