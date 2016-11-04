@@ -117,6 +117,12 @@ public class Harvester implements Subsystem {
 		
 	}
 	
+	public boolean isExtended(){
+		
+			return m_extender.get();
+		
+	}
+	
 	/**
 	 * Sets the harvester roller motors.
 	 * This method controls the rotation of the 

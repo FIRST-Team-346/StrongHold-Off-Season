@@ -28,12 +28,12 @@ public class Arm implements Subsystem {
 	 *
 	 */
 	public enum ArmPosition {
-		LOAD(150),		
-		TRAVEL(290),	
-		SHOOT(377),						
-		START(307),		
-		CLIMB(425), 
-		LOWBAR(142);		
+		LOWBAR(97),
+		LOAD(105),		
+		TRAVEL(245),
+		START(262),
+		SHOOT(337),								
+		CLIMB(385);		
 		
 		private int m_position;
 		

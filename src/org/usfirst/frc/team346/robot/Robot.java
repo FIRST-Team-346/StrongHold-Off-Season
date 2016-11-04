@@ -109,25 +109,27 @@ public class Robot extends IterativeRobot {
     	// Arm position events
     	System.out.println(this.m_armSubsystem.getArmPosition());
     	if (this.m_buttonBoard.getRawButton(8)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
     		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
+    		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
     		
     	} else if (this.m_buttonBoard.getRawButton(9)) {
+    		if(m_armSubsystem.getArmPosition()> 200 || m_harvesterSubsystem.isExtended())
     		this.m_armSubsystem.setArmPosition(ArmPosition.CLIMB);
     		
     	} else if (this.m_buttonBoard.getRawButton(10)) {
+    		if(m_armSubsystem.getArmPosition()> 200 || m_harvesterSubsystem.isExtended())
     		this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT);
     		
     	} else if (this.m_buttonBoard.getRawButton(11)) {
+    		if(m_armSubsystem.getArmPosition()> 200 || m_harvesterSubsystem.isExtended())
     		this.m_armSubsystem.setArmPosition(ArmPosition.START);
     		
     	} else if (this.m_buttonBoard.getRawButton(12)) {
     		this.m_armSubsystem.setArmPosition(ArmPosition.TRAVEL);
-    		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
     		
     	}   else if (this.m_buttonBoard.getRawButton(13)) {
-    		this.m_armSubsystem.setArmPosition(ArmPosition.LOWBAR);
     		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
+    		this.m_armSubsystem.setArmPosition(ArmPosition.LOWBAR);
     	}   	    	    	   
     	
     	// Jaw open/close and shooting events
@@ -178,6 +180,10 @@ public class Robot extends IterativeRobot {
     		this.m_climberSubsystem.setMotorState(MotorState.HANG);
        	} else {
     		this.m_climberSubsystem.setMotorState(MotorState.STOP);
+    	}
+    
+    	if (this.m_buttonBoard.getRawButton(14)) {
+    		this.m_climberSubsystem.setHookPosition(HookPosition.RETRACT);
     	}
     }
     

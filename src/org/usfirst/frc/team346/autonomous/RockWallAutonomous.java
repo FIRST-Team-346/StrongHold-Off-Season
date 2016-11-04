@@ -41,7 +41,7 @@ public class RockWallAutonomous implements AutonomousSequence {
 		
 		if ((System.currentTimeMillis() - this.m_startTime >= 4000)
 				&& (System.currentTimeMillis() - this.m_startTime < 9000)) {
-			this.m_driveSubsystem.setDrive(-0.5, -0.5);
+			this.m_driveSubsystem.setDrive(-0.8, -0.8);
 		} else {
 			this.m_driveSubsystem.setDrive(0, 0);
 			this.m_armSubsystem.setArmPosition(ArmPosition.SHOOT);

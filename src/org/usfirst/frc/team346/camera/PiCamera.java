@@ -6,7 +6,7 @@ public class PiCamera extends Thread
 {
 	boolean isValid;
 
-	double lastTargetX;
+	double lastTargetX; 
 	double lastTargetY;
 	double lastTargetZ;
 
