@@ -28,14 +28,15 @@ public class Arm implements Subsystem {
 	 *
 	 */
 	public enum ArmPosition {
-		LOWBAR(97),
-		LOAD(105),		
-		TRAVEL(245),
-		START(262),
-		SHOOT(337),								
-		CLIMB(385);		
+		LOWBAR(99),
+		LOAD(113),		
+		TRAVEL(247),
+		START(264),
+		SHOOT(339),							
+		CLIMB(387);		
 		
 		private int m_position;
+		
 		
 		/**
 		 * Get the position of the enumeration.
@@ -47,9 +48,7 @@ public class Arm implements Subsystem {
 			return this.m_position;
 		}
 		
-		
-		/**
-		 * Custom constructor for arm position enumeration
+		 /* Custom constructor for arm position enumeration
 		 * 
 		 * @param _position
 		 */
@@ -57,6 +56,7 @@ public class Arm implements Subsystem {
 			this.m_position = _position;
 		}
 	}
+	
 	
 	// Motor controller declarations
 	private CANTalon m_armMotor;

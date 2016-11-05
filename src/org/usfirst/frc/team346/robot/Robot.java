@@ -97,7 +97,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {    	
     	// Compressor event
     	this.m_compressor.start();
-    	    	        	
+    	
+    	//System.out.println(this.m_armSubsystem.getArmPosition());    	   //Uncomment when testing is needed     	
+    	
     	// Drive events
     	this.m_driveSubsystem.setDrive(this.m_leftJoystick.getY(), this.m_rightJoystick.getY());
     	if (this.m_leftJoystick.getRawButton(1)) {
@@ -106,8 +108,8 @@ public class Robot extends IterativeRobot {
     		this.m_driveSubsystem.setGear(GearSpeed.LOW_SPEED);
     	}
     	
-    	// Arm position events
-    	System.out.println(this.m_armSubsystem.getArmPosition());
+    	// Arm position events with interlocks
+    	//System.out.println(this.m_armSubsystem.getArmPosition());		//Used to recalibrate arm positions
     	if (this.m_buttonBoard.getRawButton(8)) {
     		this.m_harvesterSubsystem.setHarvesterPosition(HarvesterPosition.DEPLOY);
     		this.m_armSubsystem.setArmPosition(ArmPosition.LOAD);
